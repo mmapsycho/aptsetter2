@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clinic Name Here — Dental Clinic</title>
+<meta name="description" content="Clinic Name Here Dental Clinic, Hurghada — comprehensive, high-quality dental care.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%B7%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   EVERYTHING BELOW THIS LINE IS STYLE. TO EDIT CONTENT, LOG IN
+   AS STAFF ON THE LIVE SITE AND USE "Edit Site" — OR EDIT THE
+   DEFAULT_CONFIG BLOCK IN THE <script> AT THE BOTTOM.
+   ============================================================ */
+
+:root{
+  --ink:#16302B;
+  --paper:#FAF6EF;
+  --accent:#C08A2E;
+  --accent-ink:#4A2E14;
+  --line:#DED6C3;
+  --card:#FFFFFF;
+  --muted:#5B6B63;
+  --danger:#A23B2E;
+  --radius:2px;
+  --serif:"Fraunces", Georgia, serif;
+  --sans:"Libre Franklin", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:var(--sans);
+  color:var(--ink);
+  background:var(--paper);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+h1,h2,h3{font-family:var(--serif);font-weight:500;margin:0;letter-spacing:-0.01em;}
+p{margin:0;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+section{padding:96px 0;}
+@media(max-width:720px){section{padding:64px 0;}}
+button{font-family:inherit;cursor:pointer;}
+
+::selection{background:var(--accent);color:var(--paper);}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important;}}
+
+/* ---------- Top utility bar ---------- */
+.topbar{background:var(--ink);color:var(--paper);font-size:13.5px;}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:9px;padding-bottom:9px;gap:16px;flex-wrap:wrap;}
+.topbar .msg a{border-bottom:1px solid rgba(250,246,239,.5);}
+.topbar .info{display:flex;gap:24px;flex-wrap:wrap;opacity:.9;align-items:center;}
+.topbar .info span{margin-right:6px;}
+@media(max-width:900px){.topbar .info > span{display:none;}}
+
+/* Staff area (in topbar) */
+.staff-area{display:flex;align-items:center;gap:10px;}
+.staff-link{font-size:13px;font-weight:600;color:var(--accent);border-bottom:1px solid transparent;}
+.staff-link:hover{border-color:var(--accent);}
+.staff-pill{display:flex;align-items:center;gap:12px;background:rgba(250,246,239,.08);padding:5px 6px 5px 12px;border-radius:20px;}
+.staff-pill span.who{font-size:12.5px;color:#CFE0D9;}
+.staff-pill button{
+  background:rgba(250,246,239,.12);color:var(--paper);border:0;border-radius:16px;
+  padding:6px 12px;font-size:12.5px;font-weight:600;
+}
+.staff-pill button:hover{background:var(--accent);color:var(--ink);}
+.booking-badge{
+  background:var(--accent);color:var(--ink);border-radius:20px;font-size:11px;font-weight:700;
+  padding:1px 7px;margin-left:2px;
+}
+
+/* ---------- Header ---------- */
+header.site{position:sticky;top:0;z-index:40;background:var(--paper);border-bottom:1px solid var(--line);}
+.nav-row{display:flex;align-items:center;justify-content:space-between;padding:18px 0;}
+.brand{display:flex;align-items:center;gap:12px;}
+.brand .mark{width:44px;height:44px;border-radius:50%;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:17px;flex:none;}
+.brand img.logo-img{height:44px;width:auto;}
+.brand .name{font-family:var(--serif);font-size:20px;line-height:1.15;}
+.brand .name small{display:block;font-family:var(--sans);font-size:12px;letter-spacing:.04em;color:var(--muted);font-weight:500;}
+
+nav.main{display:flex;align-items:center;gap:34px;}
+nav.main a{font-size:14.5px;font-weight:500;position:relative;padding:4px 0;}
+nav.main a::after{content:"";position:absolute;left:0;bottom:-2px;height:1px;width:0;background:var(--accent);transition:width .25s ease;}
+nav.main a:hover::after{width:100%;}
+.header-right{display:flex;align-items:center;gap:22px;}
+.book-btn{background:var(--accent);color:var(--paper);padding:11px 22px;font-weight:600;font-size:14px;border-radius:var(--radius);white-space:nowrap;border:0;}
+.book-btn:hover{background:var(--accent-ink);}
+.menu-toggle{display:none;background:none;border:0;font-size:26px;cursor:pointer;color:var(--ink);}
+
+@media(max-width:900px){nav.main{display:none;}.menu-toggle{display:block;}}
+#mobileNav{display:none;flex-direction:column;gap:2px;border-top:1px solid var(--line);padding:10px 0 18px;}
+#mobileNav.open{display:flex;}
+#mobileNav a{padding:10px 0;font-size:15px;border-bottom:1px solid var(--line);}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;overflow:hidden;background:var(--ink);color:var(--paper);}
+.hero-slide{display:none;min-height:min(640px, 92vh);align-items:center;position:relative;}
+.hero-slide.active{display:flex;}
+.hero-slide .bg{position:absolute;inset:0;background-size:cover;background-position:center;}
+.hero-slide .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg, rgba(22,48,43,.92) 0%, rgba(22,48,43,.72) 42%, rgba(22,48,43,.25) 78%);}
+.hero-content{position:relative;max-width:620px;padding:70px 0;}
+.hero-eyebrow{font-size:13px;letter-spacing:.06em;font-weight:600;color:var(--accent);margin-bottom:18px;}
+.hero-content h1{font-size:clamp(38px,5.4vw,64px);line-height:1.04;margin-bottom:22px;white-space:pre-line;}
+.hero-content p{font-size:17px;color:#E3E3D8;max-width:480px;margin-bottom:34px;}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
+.hero-ctas a{padding:13px 24px;font-weight:600;font-size:14.5px;border-radius:var(--radius);border:1px solid rgba(250,246,239,.4);}
+.hero-ctas a.primary{background:var(--accent);border-color:var(--accent);color:var(--ink);}
+.hero-ctas a.primary:hover{background:var(--paper);}
+.hero-ctas a:not(.primary):hover{background:rgba(250,246,239,.12);}
+.hero-dots{position:absolute;bottom:26px;left:0;right:0;display:flex;justify-content:center;gap:8px;z-index:2;}
+.hero-dots button{width:22px;height:3px;border:0;background:rgba(250,246,239,.4);cursor:pointer;padding:0;}
+.hero-dots button.active{background:var(--accent);}
+
+/* ---------- Ticker ---------- */
+.ticker{background:var(--card);border-bottom:1px solid var(--line);}
+.ticker .wrap{padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.ticker p{font-size:15px;}
+.ticker a{font-weight:600;color:var(--accent);border-bottom:1px solid var(--accent);}
+
+/* ---------- Section heading ---------- */
+.eyebrow{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;letter-spacing:.05em;color:var(--accent);margin-bottom:14px;}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--accent);}
+.sec-title{margin-bottom:46px;max-width:640px;}
+.sec-title h2{font-size:clamp(28px,3.4vw,40px);}
+
+/* ---------- About ---------- */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;}
+.about-media{position:relative;}
+.about-media img{border-radius:var(--radius);width:100%;height:460px;object-fit:cover;}
+.about-media .frame{position:absolute;top:-22px;left:-22px;right:22px;bottom:22px;border:1px solid var(--accent);z-index:-1;}
+.about-body p{color:var(--muted);font-size:16px;line-height:1.7;margin-bottom:18px;}
+.about-stats{display:flex;gap:40px;margin-top:32px;padding-top:28px;border-top:1px solid var(--line);}
+.about-stats div strong{display:block;font-family:var(--serif);font-size:30px;}
+.about-stats div span{font-size:13px;color:var(--muted);}
+@media(max-width:860px){.about{grid-template-columns:1fr;gap:40px;}.about-media .frame{display:none;}.about-media img{height:320px;}}
+
+/* ---------- Services ---------- */
+.services-list{border-top:1px solid var(--line);}
+.service-row{display:grid;grid-template-columns:120px 1fr auto;gap:28px;align-items:center;padding:30px 0;border-bottom:1px solid var(--line);}
+.service-row .thumb{width:120px;height:96px;border-radius:var(--radius);overflow:hidden;background:var(--line);}
+.service-row .thumb img{width:100%;height:100%;object-fit:cover;}
+.service-row h3{font-size:21px;margin-bottom:8px;}
+.service-row p{color:var(--muted);font-size:15px;max-width:520px;}
+.service-row .arrow{font-family:var(--serif);font-size:26px;color:var(--accent);transition:transform .2s ease;}
+.service-row:hover .arrow{transform:translateX(6px);}
+@media(max-width:640px){.service-row{grid-template-columns:1fr;gap:14px;}.service-row .thumb{width:100%;height:170px;}.service-row .arrow{display:none;}}
+
+/* ---------- Gallery ---------- */
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;}
+.gallery-grid figure{margin:0;position:relative;overflow:hidden;border-radius:var(--radius);}
+.gallery-grid img{width:100%;height:280px;object-fit:cover;transition:transform .4s ease;}
+.gallery-grid figure:hover img{transform:scale(1.04);}
+.gallery-grid figcaption{position:absolute;left:0;right:0;bottom:0;padding:16px 18px;background:linear-gradient(to top, rgba(22,48,43,.85), transparent);color:var(--paper);font-size:14px;font-weight:500;}
+
+/* ---------- Testimonials ---------- */
+.testimonials{background:var(--ink);color:var(--paper);}
+.testimonials .sec-title h2{color:var(--paper);}
+.t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(250,246,239,.18);border:1px solid rgba(250,246,239,.18);}
+.t-card{background:var(--ink);padding:34px 30px;}
+.t-card .quote-mark{font-family:var(--serif);font-size:44px;color:var(--accent);line-height:1;margin-bottom:14px;}
+.t-card p.quote{font-size:15.5px;color:#E3E3D8;line-height:1.65;margin-bottom:22px;min-height:96px;}
+.t-card .stars{color:var(--accent);font-size:13px;margin-bottom:10px;letter-spacing:2px;}
+.t-card .who{font-size:13.5px;font-weight:600;color:var(--paper);}
+@media(max-width:860px){.t-grid{grid-template-columns:1fr;}}
+
+/* ---------- Booking wizard ---------- */
+.booking-section{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.booking-box{max-width:640px;margin:0 auto;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:40px;}
+.booking-steps{display:flex;gap:8px;margin-bottom:32px;}
+.booking-steps .dot{flex:1;height:3px;background:var(--line);}
+.booking-steps .dot.done, .booking-steps .dot.active{background:var(--accent);}
+.booking-step-label{font-size:13px;color:var(--muted);margin-bottom:6px;font-weight:600;letter-spacing:.03em;}
+.b-step{display:none;}
+.b-step.active{display:block;}
+.b-service-list{display:flex;flex-direction:column;gap:2px;}
+.b-service-opt{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 18px;border:1px solid var(--line);cursor:pointer;border-radius:var(--radius);margin-bottom:8px;
+}
+.b-service-opt:hover{border-color:var(--accent);}
+.b-service-opt.selected{border-color:var(--accent);background:rgba(192,138,46,.08);}
+.b-service-opt span.check{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--line);flex:none;}
+.b-service-opt.selected span.check{border-color:var(--accent);background:var(--accent);}
+.field{margin-bottom:18px;}
+.field label{display:block;font-size:13px;font-weight:600;margin-bottom:7px;color:var(--muted);}
+.field input, .field select, .field textarea{
+  width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius);
+  font-family:inherit;font-size:14.5px;background:var(--card);color:var(--ink);
+}
+.field textarea{resize:vertical;min-height:80px;}
+.field input:focus, .field select:focus, .field textarea:focus{border-color:var(--accent);}
+.slot-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px;}
+.slot-btn{padding:10px 6px;border:1px solid var(--line);border-radius:var(--radius);font-size:13.5px;background:var(--card);text-align:center;}
+.slot-btn:hover{border-color:var(--accent);}
+.slot-btn.selected{background:var(--accent);border-color:var(--accent);color:var(--ink);font-weight:600;}
+.b-nav{display:flex;justify-content:space-between;margin-top:26px;gap:12px;}
+.btn-secondary{background:transparent;border:1px solid var(--line);padding:12px 22px;border-radius:var(--radius);font-weight:600;font-size:14px;}
+.btn-secondary:hover{border-color:var(--ink);}
+.btn-primary{background:var(--accent);color:var(--ink);border:0;padding:12px 24px;border-radius:var(--radius);font-weight:600;font-size:14px;}
+.btn-primary:hover{background:var(--accent-ink);color:var(--paper);}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed;}
+.b-summary{border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;font-size:14px;margin-bottom:20px;background:var(--card);}
+.b-summary strong{display:block;margin-bottom:4px;}
+.b-notice{font-size:13px;padding:10px 14px;border-radius:var(--radius);margin-bottom:16px;}
+.b-notice.warn{background:#FBF0DD;color:#7A4E12;border:1px solid #EAD3A0;}
+.b-success{text-align:center;padding:30px 10px;}
+.b-success .icon{font-size:44px;margin-bottom:14px;}
+.b-success h3{margin-bottom:10px;}
+.b-success p{color:var(--muted);}
+
+/* ---------- CTA band / footer ---------- */
+.cta-band{background:var(--accent);color:var(--ink);}
+.cta-band .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;padding:52px 28px;}
+.cta-band h2{font-size:clamp(24px,3vw,32px);max-width:520px;}
+.cta-band .book-btn{background:var(--ink);color:var(--paper);}
+.cta-band .book-btn:hover{background:var(--accent-ink);}
+
+footer{background:#0F211C;color:#C9D2CC;padding-top:76px;}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px;padding-bottom:56px;border-bottom:1px solid rgba(250,246,239,.12);}
+.footer-grid h4{font-family:var(--serif);color:var(--paper);font-size:17px;margin-bottom:18px;font-weight:500;}
+.footer-brand p{font-size:14px;line-height:1.7;margin-top:16px;color:#9CA9A2;max-width:280px;}
+.footer-grid ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px;}
+.footer-grid ul a{font-size:14px;color:#C9D2CC;}
+.footer-grid ul a:hover{color:var(--accent);}
+.footer-social{display:flex;gap:10px;margin-top:18px;}
+.footer-social a{width:36px;height:36px;border:1px solid rgba(250,246,239,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.footer-social a:hover{background:var(--accent);border-color:var(--accent);color:var(--ink);}
+.footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:22px 0;font-size:13px;color:#7E8B85;}
+@media(max-width:860px){.footer-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:560px){.footer-grid{grid-template-columns:1fr;}}
+
+/* ============================================================
+   STAFF / ADMIN UI
+   ============================================================ */
+.overlay{position:fixed;inset:0;background:rgba(15,25,22,.55);z-index:100;display:none;}
+.overlay.open{display:block;}
+
+.modal{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+  background:var(--paper);border-radius:var(--radius);width:min(400px,90vw);
+  padding:34px;z-index:101;display:none;box-shadow:0 20px 60px rgba(0,0,0,.3);
+}
+.modal.open{display:block;}
+.modal h3{font-size:22px;margin-bottom:6px;}
+.modal .sub{font-size:13.5px;color:var(--muted);margin-bottom:22px;}
+.modal .close-x{position:absolute;top:16px;right:18px;background:none;border:0;font-size:18px;color:var(--muted);}
+.modal .error{color:var(--danger);font-size:13px;margin-top:10px;display:none;}
+.modal .error.show{display:block;}
+.modal button.full{width:100%;margin-top:6px;}
+
+.drawer{
+  position:fixed;top:0;right:0;bottom:0;width:min(560px,94vw);background:var(--paper);
+  z-index:101;transform:translateX(100%);transition:transform .3s ease;
+  display:flex;flex-direction:column;box-shadow:-8px 0 30px rgba(0,0,0,.25);
+}
+.drawer.open{transform:translateX(0);}
+.drawer-head{display:flex;justify-content:space-between;align-items:center;padding:22px 26px;border-bottom:1px solid var(--line);flex:none;}
+.drawer-head h3{font-size:19px;}
+.drawer-head button{background:none;border:0;font-size:20px;color:var(--muted);}
+.drawer-body{flex:1;overflow-y:auto;padding:10px 26px 26px;}
+.drawer-foot{flex:none;padding:16px 26px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:10px;background:var(--paper);}
+.drawer-foot .msg{margin-right:auto;font-size:13px;color:var(--muted);align-self:center;}
+
+details.acc{border-bottom:1px solid var(--line);padding:16px 0;}
+details.acc summary{cursor:pointer;font-weight:600;font-size:15px;list-style:none;display:flex;justify-content:space-between;align-items:center;}
+details.acc summary::-webkit-details-marker{display:none;}
+details.acc summary::after{content:"+";font-size:18px;color:var(--accent);}
+details.acc[open] summary::after{content:"–";}
+details.acc .acc-body{padding-top:16px;}
+
+.item-card{border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:12px;position:relative;}
+.item-card .remove-btn{position:absolute;top:10px;right:10px;background:none;border:0;color:var(--danger);font-size:13px;font-weight:600;}
+.add-btn{background:none;border:1px dashed var(--line);width:100%;padding:12px;border-radius:var(--radius);font-size:13.5px;font-weight:600;color:var(--muted);}
+.add-btn:hover{border-color:var(--accent);color:var(--accent);}
+.color-row{display:flex;align-items:center;gap:10px;}
+.color-row input[type=color]{width:40px;height:36px;padding:0;border:1px solid var(--line);border-radius:var(--radius);}
+.upload-row{display:flex;gap:8px;align-items:center;}
+.upload-row .field{flex:1;margin-bottom:0;}
+.upload-btn{flex:none;background:var(--ink);color:var(--paper);border:0;border-radius:var(--radius);padding:0 14px;height:44px;font-size:13px;font-weight:600;}
+.upload-btn:hover{background:var(--accent-ink);}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+.bk-card{border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin-bottom:12px;}
+.bk-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;}
+.bk-top strong{font-size:15.5px;}
+.bk-meta{font-size:13px;color:var(--muted);margin-bottom:6px;}
+.bk-notes{font-size:13.5px;color:var(--ink);background:var(--card);border-radius:var(--radius);padding:8px 10px;margin-top:8px;}
+.bk-actions{display:flex;gap:8px;margin-top:10px;align-items:center;}
+.bk-actions select{padding:6px 8px;border:1px solid var(--line);border-radius:var(--radius);font-size:13px;}
+.bk-actions button{background:none;border:1px solid var(--line);border-radius:var(--radius);padding:6px 10px;font-size:12.5px;font-weight:600;color:var(--danger);}
+.status-badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:12px;text-transform:uppercase;letter-spacing:.03em;}
+.status-new{background:#FBF0DD;color:#7A4E12;}
+.status-confirmed{background:#DCEAE1;color:#1F5E3F;}
+.status-completed{background:#E1E7E4;color:#3D4A44;}
+.status-cancelled{background:#F3DEDA;color:#8A2E1E;}
+.bk-empty{text-align:center;color:var(--muted);padding:40px 0;font-size:14px;}
+
+.toast{
+  position:fixed;bottom:26px;left:50%;transform:translateX(-50%);
+  background:var(--ink);color:var(--paper);padding:12px 22px;border-radius:20px;
+  font-size:13.5px;font-weight:500;z-index:200;opacity:0;pointer-events:none;transition:opacity .25s ease;
+}
+.toast.show{opacity:1;}
+.edit-toggle-hint{display:none;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="msg"><span id="welcomeMsg"></span></div>
+    <div class="info" id="topInfo">
+      <div class="staff-area" id="staffArea"></div>
+    </div>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap nav-row">
+    <a class="brand" href="#home" id="brandBlock"></a>
+    <nav class="main" id="mainNav"></nav>
+    <div class="header-right">
+      <a class="book-btn" id="headerBookBtn" href="#book">Book an Appointment</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu">&#9776;</button>
+    </div>
+  </div>
+  <div class="wrap"><nav id="mobileNav"></nav></div>
+</header>
+
+<section class="hero" id="home">
+  <div id="heroSlides"></div>
+  <div class="hero-dots" id="heroDots"></div>
+</section>
+
+<div class="ticker">
+  <div class="wrap">
+    <p id="tickerText"></p>
+    <a href="#book" id="tickerLink"></a>
+  </div>
+</div>
+
+<section id="about">
+  <div class="wrap about">
+    <div class="about-media">
+      <div class="frame"></div>
+      <img id="aboutImg" src="" alt="">
+    </div>
+    <div class="about-body">
+      <div class="eyebrow" id="aboutEyebrow"></div>
+      <h2 id="aboutTitle" style="margin-bottom:20px;"></h2>
+      <div id="aboutText"></div>
+      <div class="about-stats" id="aboutStats"></div>
+    </div>
+  </div>
+</section>
+
+<section id="services" style="background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <div class="sec-title">
+      <div class="eyebrow" id="servicesEyebrow"></div>
+      <h2 id="servicesTitle"></h2>
+    </div>
+    <div class="services-list" id="servicesList"></div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="wrap">
+    <div class="sec-title">
+      <div class="eyebrow" id="galleryEyebrow"></div>
+      <h2 id="galleryTitle"></h2>
+    </div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+</section>
+
+<section class="testimonials" id="reviews">
+  <div class="wrap">
+    <div class="sec-title">
+      <div class="eyebrow" id="reviewsEyebrow"></div>
+      <h2 id="reviewsTitle"></h2>
+    </div>
+  </div>
+  <div class="t-grid" id="reviewsGrid"></div>
+</section>
+
+<!-- ============ Booking wizard ============ -->
+<section class="booking-section" id="book">
+  <div class="wrap">
+    <div class="sec-title" style="margin-bottom:34px;">
+      <div class="eyebrow"><span>Book an Appointment</span></div>
+      <h2>Request a visit</h2>
+    </div>
+    <div class="booking-box">
+      <div class="booking-steps">
+        <div class="dot active" data-step="1"></div>
+        <div class="dot" data-step="2"></div>
+        <div class="dot" data-step="3"></div>
+        <div class="dot" data-step="4"></div>
+      </div>
+
+      <div id="bookingForm">
+        <div class="b-step active" data-step="1">
+          <div class="booking-step-label">Step 1 of 4 — Choose a service</div>
+          <div class="b-service-list" id="bServiceList"></div>
+        </div>
+
+        <div class="b-step" data-step="2">
+          <div class="booking-step-label">Step 2 of 4 — Pick a date</div>
+          <div class="field">
+            <label for="bDate">Date</label>
+            <input type="date" id="bDate">
+          </div>
+        </div>
+
+        <div class="b-step" data-step="3">
+          <div class="booking-step-label">Step 3 of 4 — Pick a time</div>
+          <div id="bSlotNotice"></div>
+          <div class="slot-grid" id="bSlotGrid"></div>
+        </div>
+
+        <div class="b-step" data-step="4">
+          <div class="booking-step-label">Step 4 of 4 — Your details</div>
+          <div class="b-summary" id="bSummary"></div>
+          <div class="field">
+            <label for="bName">Full name</label>
+            <input type="text" id="bName" placeholder="Your name">
+          </div>
+          <div class="field">
+            <label for="bContact">Phone or email</label>
+            <input type="text" id="bContact" placeholder="+20 1xx xxx xxxx or you@email.com">
+          </div>
+          <div class="field">
+            <label for="bNotes">Notes (optional)</label>
+            <textarea id="bNotes" placeholder="Anything we should know before your visit"></textarea>
+          </div>
+        </div>
+
+        <div class="b-nav">
+          <button class="btn-secondary" id="bBack" style="visibility:hidden;">Back</button>
+          <button class="btn-primary" id="bNext">Next</button>
+        </div>
+      </div>
+
+      <div id="bookingSuccess" class="b-success" style="display:none;">
+        <div class="icon">✅</div>
+        <h3>Request received</h3>
+        <p id="bSuccessText"></p>
+        <button class="btn-secondary" id="bBookAnother" style="margin-top:18px;">Book another appointment</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band">
+  <div class="wrap">
+    <h2 id="ctaText"></h2>
+    <a class="book-btn" href="#book" id="ctaBtn"></a>
+  </div>
+</div>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand" id="footerBrand" style="color:var(--paper);"></div>
+        <p id="footerAbout"></p>
+        <div class="footer-social" id="footerSocial"></div>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul id="footerNav"></ul>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul id="footerServices"></ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul id="footerContact"></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p id="footerCopy"></p>
+      <p id="footerCredit"></p>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ Staff: login modal ============ -->
+<div class="overlay" id="overlay"></div>
+<div class="modal" id="loginModal">
+  <button class="close-x" data-close="loginModal">✕</button>
+  <h3>Staff sign in</h3>
+  <p class="sub">For clinic staff only. Ask an administrator for an account.</p>
+  <div class="field"><label for="loginEmail">Email</label><input type="email" id="loginEmail" autocomplete="username"></div>
+  <div class="field"><label for="loginPass">Password</label><input type="password" id="loginPass" autocomplete="current-password"></div>
+  <button class="btn-primary full" id="loginSubmit">Sign in</button>
+  <p class="error" id="loginError">That email or password isn't right.</p>
+</div>
+
+<!-- ============ Staff: site editor drawer ============ -->
+<div class="drawer" id="editorDrawer">
+  <div class="drawer-head"><h3>Edit site</h3><button data-close="editorDrawer">✕</button></div>
+  <div class="drawer-body" id="editorBody"></div>
+  <div class="drawer-foot">
+    <span class="msg" id="editorMsg"></span>
+    <button class="btn-secondary" data-close="editorDrawer">Cancel</button>
+    <button class="btn-primary" id="editorSave">Save changes</button>
+  </div>
+</div>
+
+<!-- ============ Staff: bookings drawer ============ -->
+<div class="drawer" id="bookingsDrawer">
+  <div class="drawer-head"><h3>Bookings</h3><button data-close="bookingsDrawer">✕</button></div>
+  <div class="drawer-body" id="bookingsBody"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+  getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+  getFirestore, doc, getDoc, setDoc, onSnapshot,
+  collection, addDoc, query, orderBy, updateDoc, deleteDoc,
+  serverTimestamp, where, getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {
+  getStorage, ref, uploadBytes, getDownloadURL
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+/* =========================================================================
+   FIREBASE CONFIG — newapt-26aaa project
+   ========================================================================= */
+const firebaseConfig = {
+  apiKey: "AIzaSyC1T7ZsWpGk3wdGj52TcFzkDhhMZOPFRKU",
+  authDomain: "newapt-26aaa.firebaseapp.com",
+  projectId: "newapt-26aaa",
+  storageBucket: "newapt-26aaa.firebasestorage.app",
+  messagingSenderId: "880753905958",
+  appId: "1:880753905958:web:e1f29572ab2167331ef1e7"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
+
+/* =========================================================================
+   DEFAULT CONTENT — used until (and unless) staff save changes to Firestore.
+   Once staff save from "Edit site", this becomes the fallback only.
+   ========================================================================= */
+const DEFAULT_CONFIG = {
+  colors: { ink:"#16302B", paper:"#FAF6EF", accent:"#C08A2E", accentInk:"#4A2E14", line:"#DED6C3" },
+  brand: { name:"Clinic Name Here", tagline:"Dental Clinic", logoImage:"", logoInitials:"MF" },
+  contact: {
+    phoneDisplay:"+20 100 100 0867", phoneHref:"tel:+201001000867",
+    email:"clinic@example.com",
+    address:"El Nasr Street, above Spinneys, 3rd floor, unit 121, Hurghada",
+    hours:"Open daily, 11:00 AM – 11:00 PM"
+  },
+  social: { facebook:"https://www.facebook.com/", instagram:"https://www.instagram.com/", twitter:"", linkedin:"" },
+  nav: [
+    { label:"Home", href:"#home" }, { label:"About", href:"#about" },
+    { label:"Services", href:"#services" }, { label:"Gallery", href:"#gallery" },
+    { label:"Reviews", href:"#reviews" }, { label:"Book", href:"#book" }, { label:"Contact", href:"#contact" }
+  ],
+  topbar: { welcomeText:"Welcome to Clinic Name Here Dental Clinic.", linkLabel:"Book an appointment", linkHref:"#book" },
+  hero: {
+    slides: [
+      { image:"https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=1800&auto=format&fit=crop", eyebrow:"Dental Clinic · Hurghada", headline:"Healthy smiles,\nconfidently made.", text:"Comprehensive, modern dental care in the heart of Hurghada — from routine checkups to complete smile restoration." },
+      { image:"https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=1800&auto=format&fit=crop", eyebrow:"Clinic Name Here", headline:"Gentle care,\nlasting results.", text:"A calm, modern clinic and an experienced team, focused on comfortable visits and long-term dental health." }
+    ],
+    ctas: [ { label:"Book an Appointment", href:"#book", primary:true }, { label:"Our Location", href:"#contact" }, { label:"Call Us", href:"tel:+201001000867" } ]
+  },
+  ticker: { text:"Read patient guides and dental care tips on our blog.", linkLabel:"Book an appointment →", linkHref:"#book" },
+  about: {
+    eyebrow:"About Us", title:"Care built around your comfort",
+    image:"https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=1200&auto=format&fit=crop",
+    paragraphs: [
+      "Clinic Name Here Dental Clinic offers comprehensive, high-quality dental care for a healthy, confident smile. Located in the heart of Hurghada, the clinic combines modern equipment with an attentive, patient-first approach.",
+      "Every treatment plan is built around the individual — whether that means a routine cleaning, a restorative procedure, or a complete smile makeover."
+    ],
+    stats: [ { number:"10+", label:"Years of experience" }, { number:"1,000+", label:"Smiles treated" }, { number:"11PM", label:"Open daily until" } ]
+  },
+  services: {
+    eyebrow:"Our Services", title:"Treatments we offer",
+    items: [
+      { title:"Root Canal Treatment", description:"Advanced root canal therapy to eliminate infection and save the natural tooth, performed with minimal discomfort.", image:"https://images.unsplash.com/photo-1609840114035-3c981b782dfe?q=80&w=800&auto=format&fit=crop" },
+      { title:"Dental Fillings", description:"High-quality, tooth-colored fillings that restore strength and blend naturally with your smile.", image:"https://images.unsplash.com/photo-1571772996211-2f02c9727629?q=80&w=800&auto=format&fit=crop" },
+      { title:"Dental Crowns & Bridges", description:"Custom-made crowns and bridges designed to restore damaged or missing teeth comfortably and durably.", image:"https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=800&auto=format&fit=crop" },
+      { title:"Teeth Whitening", description:"Safe, professional whitening treatments for a brighter smile in a single visit.", image:"https://images.unsplash.com/photo-1581056771107-24ca5f033842?q=80&w=800&auto=format&fit=crop" }
+    ]
+  },
+  gallery: {
+    eyebrow:"Previous Work", title:"Before & after",
+    images: [
+      { src:"https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=900&auto=format&fit=crop", caption:"Smile restoration" },
+      { src:"https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=900&auto=format&fit=crop", caption:"Full clinic visit" },
+      { src:"https://images.unsplash.com/photo-1609840114035-3c981b782dfe?q=80&w=900&auto=format&fit=crop", caption:"Restorative care" }
+    ]
+  },
+  reviews: {
+    eyebrow:"Patient Reviews", title:"What patients say",
+    items: [
+      { quote:"Comfortable, modern clinic and a very attentive team. I finally look forward to dental visits.", who:"Verified Patient", rating:5 },
+      { quote:"The dentist explained every step clearly and the results exceeded what I expected.", who:"Verified Patient", rating:5 },
+      { quote:"Booked an appointment the same week and was seen right on time. Highly recommend.", who:"Verified Patient", rating:5 }
+    ]
+  },
+  booking: { slotMinutes:60, startHour:11, endHour:23 },
+  cta: { text:"Ready for a healthier, more confident smile?", buttonLabel:"Book an Appointment" },
+  footer: { about:"Clinic Name Here Dental Clinic offers comprehensive, high-quality dental care for a healthy, confident smile.", copyright:"Copyright © 2026 Clinic Name Here. All rights reserved.", creditLine:"" }
+};
+
+let liveConfig = structuredClone(DEFAULT_CONFIG);
+let currentUser = null;
+let newBookingsCount = 0;
+
+const $ = id => document.getElementById(id);
+function toast(msg){
+  const t = $('toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toast._t); toast._t = setTimeout(()=>t.classList.remove('show'), 2600);
+}
+function mergeDeep(base, extra){
+  if(Array.isArray(base)) return Array.isArray(extra) ? extra : base;
+  if(base && typeof base === 'object'){
+    const out = {...base};
+    if(extra && typeof extra === 'object'){
+      for(const k in base) out[k] = mergeDeep(base[k], extra[k]);
+    }
+    return out;
+  }
+  return extra === undefined ? base : extra;
+}
+
+/* ================================================================
+   RENDER — builds the whole page from liveConfig.
+   ================================================================ */
+function renderAll(){
+  const c = liveConfig;
+  const root = document.documentElement.style;
+  root.setProperty('--ink', c.colors.ink);
+  root.setProperty('--paper', c.colors.paper);
+  root.setProperty('--accent', c.colors.accent);
+  root.setProperty('--accent-ink', c.colors.accentInk);
+  root.setProperty('--line', c.colors.line);
+
+  const starIcons = n => "★".repeat(n) + "☆".repeat(5-n);
+
+  $('welcomeMsg').innerHTML = `${c.topbar.welcomeText} <a href="${c.topbar.linkHref}">${c.topbar.linkLabel}</a>`;
+  const infoHtml = `<span>📍 ${c.contact.address}</span><span>✉️ <a href="mailto:${c.contact.email}">${c.contact.email}</a></span><span>🕐 ${c.contact.hours}</span>`;
+  // preserve staffArea node
+  const staffAreaNode = $('staffArea');
+  $('topInfo').innerHTML = infoHtml;
+  $('topInfo').appendChild(staffAreaNode);
+
+  function brandHtml(dark){
+    const logo = c.brand.logoImage
+      ? `<img class="logo-img" src="${c.brand.logoImage}" alt="${c.brand.name} logo">`
+      : `<div class="mark">${c.brand.logoInitials}</div>`;
+    return `${logo}<div class="name" style="${dark ? 'color:var(--paper)' : ''}">${c.brand.name}<small>${c.brand.tagline}</small></div>`;
+  }
+  $('brandBlock').innerHTML = brandHtml(false);
+  $('footerBrand').innerHTML = brandHtml(true);
+
+  $('mainNav').innerHTML = c.nav.map(n => `<a href="${n.href}">${n.label}</a>`).join('');
+  $('mobileNav').innerHTML = c.nav.map(n => `<a href="${n.href}">${n.label}</a>`).join('');
+  $('footerNav').innerHTML = c.nav.map(n => `<li><a href="${n.href}">${n.label}</a></li>`).join('');
+
+  const heroWrap = $('heroSlides');
+  heroWrap.innerHTML = c.hero.slides.map((s,i) => `
+    <div class="hero-slide ${i===0?'active':''}" data-i="${i}">
+      <div class="bg" style="background-image:url('${s.image}')"></div>
+      <div class="wrap">
+        <div class="hero-content">
+          <div class="hero-eyebrow">${s.eyebrow}</div>
+          <h1>${s.headline}</h1>
+          <p>${s.text}</p>
+          <div class="hero-ctas">${c.hero.ctas.map(cta => `<a class="${cta.primary?'primary':''}" href="${cta.href}">${cta.label}</a>`).join('')}</div>
+        </div>
+      </div>
+    </div>`).join('');
+
+  $('heroDots').innerHTML = '';
+  if(c.hero.slides.length > 1){
+    $('heroDots').innerHTML = c.hero.slides.map((_,i)=>`<button data-i="${i}" class="${i===0?'active':''}" aria-label="Show slide ${i+1}"></button>`).join('');
+    let current = 0;
+    const slides = () => document.querySelectorAll('.hero-slide');
+    const dots = () => document.querySelectorAll('.hero-dots button');
+    function show(i){ slides().forEach(s => s.classList.toggle('active', +s.dataset.i === i)); dots().forEach(d => d.classList.toggle('active', +d.dataset.i === i)); current = i; }
+    dots().forEach(d => d.addEventListener('click', () => show(+d.dataset.i)));
+    clearInterval(renderAll._heroTimer);
+    renderAll._heroTimer = setInterval(() => show((current+1) % c.hero.slides.length), 7000);
+  }
+
+  $('tickerText').textContent = c.ticker.text;
+  $('tickerLink').textContent = c.ticker.linkLabel;
+  $('tickerLink').href = c.ticker.linkHref;
+
+  $('aboutEyebrow').textContent = c.about.eyebrow;
+  $('aboutTitle').textContent = c.about.title;
+  $('aboutImg').src = c.about.image;
+  $('aboutText').innerHTML = c.about.paragraphs.map(p => `<p>${p}</p>`).join('');
+  $('aboutStats').innerHTML = c.about.stats.map(s => `<div><strong>${s.number}</strong><span>${s.label}</span></div>`).join('');
+
+  $('servicesEyebrow').textContent = c.services.eyebrow;
+  $('servicesTitle').textContent = c.services.title;
+  $('servicesList').innerHTML = c.services.items.map(s => `
+    <div class="service-row"><div class="thumb"><img src="${s.image}" alt="${s.title}"></div><div><h3>${s.title}</h3><p>${s.description}</p></div><div class="arrow">→</div></div>`).join('');
+  $('footerServices').innerHTML = c.services.items.map(s => `<li><a href="#services">${s.title}</a></li>`).join('');
+
+  $('galleryEyebrow').textContent = c.gallery.eyebrow;
+  $('galleryTitle').textContent = c.gallery.title;
+  $('galleryGrid').innerHTML = c.gallery.images.map(g => `<figure><img src="${g.src}" alt="${g.caption}"><figcaption>${g.caption}</figcaption></figure>`).join('');
+
+  $('reviewsEyebrow').textContent = c.reviews.eyebrow;
+  $('reviewsTitle').textContent = c.reviews.title;
+  $('reviewsGrid').innerHTML = c.reviews.items.map(r => `
+    <div class="t-card"><div class="quote-mark">"</div><div class="stars">${starIcons(r.rating)}</div><p class="quote">${r.quote}</p><div class="who">${r.who}</div></div>`).join('');
+
+  $('ctaText').textContent = c.cta.text;
+  $('ctaBtn').textContent = c.cta.buttonLabel;
+
+  $('footerAbout').textContent = c.footer.about;
+  $('footerSocial').innerHTML = Object.entries(c.social).filter(([,url]) => url)
+    .map(([key,url]) => `<a href="${url}" aria-label="${key}">${({facebook:'f',instagram:'ig',twitter:'x',linkedin:'in'})[key] || key[0]}</a>`).join('');
+  $('footerContact').innerHTML = `<li>${c.contact.address}</li><li><a href="${c.contact.phoneHref}">${c.contact.phoneDisplay}</a></li><li><a href="mailto:${c.contact.email}">${c.contact.email}</a></li><li>${c.contact.hours}</li>`;
+  $('footerCopy').textContent = c.footer.copyright;
+  $('footerCredit').textContent = c.footer.creditLine || '';
+
+  renderBookingServiceList();
+}
+
+/* ================================================================
+   MODALS / DRAWERS — generic open/close
+   ================================================================ */
+function openPanel(id){ $('overlay').classList.add('open'); $(id).classList.add('open'); }
+function closePanel(id){ $(id).classList.remove('open'); const anyOpen = document.querySelectorAll('.modal.open, .drawer.open').length; if(!anyOpen) $('overlay').classList.remove('open'); }
+$('overlay').addEventListener('click', () => { document.querySelectorAll('.modal.open, .drawer.open').forEach(el => el.classList.remove('open')); $('overlay').classList.remove('open'); });
+document.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', () => closePanel(btn.dataset.close)));
+
+$('menuToggle').addEventListener('click', () => $('mobileNav').classList.toggle('open'));
+document.addEventListener('click', e => { if(e.target.matches('#mobileNav a')) $('mobileNav').classList.remove('open'); });
+
+/* ================================================================
+   AUTH — staff login
+   ================================================================ */
+function renderStaffArea(){
+  const el = $('staffArea');
+  if(currentUser){
+    el.innerHTML = `
+      <div class="staff-pill">
+        <span class="who">Staff: ${currentUser.email}</span>
+        <button id="btnEditSite">Edit site</button>
+        <button id="btnBookings">Bookings${newBookingsCount ? `<span class="booking-badge">${newBookingsCount}</span>` : ''}</button>
+        <button id="btnSignOut">Sign out</button>
+      </div>`;
+    $('btnEditSite').addEventListener('click', openEditor);
+    $('btnBookings').addEventListener('click', openBookings);
+    $('btnSignOut').addEventListener('click', () => signOut(auth));
+  } else {
+    el.innerHTML = `<a href="#" class="staff-link" id="btnStaffLogin">Staff Login</a>`;
+    $('btnStaffLogin').addEventListener('click', e => { e.preventDefault(); openPanel('loginModal'); });
+  }
+}
+onAuthStateChanged(auth, user => { currentUser = user; renderStaffArea(); if(user) listenBookings(); else stopBookingsListener(); });
+
+$('loginSubmit').addEventListener('click', async () => {
+  const email = $('loginEmail').value.trim();
+  const pass = $('loginPass').value;
+  $('loginError').classList.remove('show');
+  try{
+    await signInWithEmailAndPassword(auth, email, pass);
+    closePanel('loginModal');
+    $('loginEmail').value=''; $('loginPass').value='';
+    toast('Signed in');
+  }catch(err){
+    $('loginError').classList.add('show');
+  }
+});
+
+/* ================================================================
+   LIVE SITE CONTENT — Firestore-backed
+   ================================================================ */
+onSnapshot(doc(db,'site','config'), snap => {
+  liveConfig = snap.exists() ? mergeDeep(DEFAULT_CONFIG, snap.data()) : structuredClone(DEFAULT_CONFIG);
+  renderAll();
+}, () => { liveConfig = structuredClone(DEFAULT_CONFIG); renderAll(); });
+
+/* ================================================================
+   SITE EDITOR
+   ================================================================ */
+let draft = null;
+
+function openEditor(){
+  draft = structuredClone(liveConfig);
+  $('editorMsg').textContent = '';
+  buildEditorForm();
+  openPanel('editorDrawer');
+}
+
+function field(label, value, onInput, type='text'){
+  const wrap = document.createElement('div'); wrap.className = 'field';
+  const lab = document.createElement('label'); lab.textContent = label; wrap.appendChild(lab);
+  const input = type === 'textarea' ? document.createElement('textarea') : document.createElement('input');
+  if(type !== 'textarea') input.type = type;
+  input.value = value ?? '';
+  input.addEventListener('input', () => onInput(input.value));
+  wrap.appendChild(input);
+  return wrap;
+}
+
+function imageField(label, value, onInput, pathPrefix){
+  const wrap = document.createElement('div'); wrap.className = 'field';
+  const lab = document.createElement('label'); lab.textContent = label; wrap.appendChild(lab);
+  const row = document.createElement('div'); row.className = 'upload-row';
+  const inputWrap = document.createElement('div'); inputWrap.className = 'field';
+  const input = document.createElement('input'); input.type = 'text'; input.value = value ?? ''; input.placeholder = 'Image URL';
+  input.addEventListener('input', () => onInput(input.value));
+  inputWrap.appendChild(input);
+  const upBtn = document.createElement('button'); upBtn.type='button'; upBtn.className='upload-btn'; upBtn.textContent='Upload';
+  const fileInput = document.createElement('input'); fileInput.type='file'; fileInput.accept='image/*'; fileInput.style.display='none';
+  upBtn.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', async () => {
+    const file = fileInput.files[0]; if(!file) return;
+    upBtn.textContent = '…'; upBtn.disabled = true;
+    try{
+      const path = `${pathPrefix}/${Date.now()}-${file.name}`;
+      const sref = ref(storage, path);
+      await uploadBytes(sref, file);
+      const url = await getDownloadURL(sref);
+      input.value = url; onInput(url);
+      toast('Image uploaded');
+    }catch(e){ toast('Upload failed — check Storage rules'); }
+    upBtn.textContent = 'Upload'; upBtn.disabled = false;
+  });
+  row.appendChild(inputWrap); row.appendChild(upBtn); row.appendChild(fileInput);
+  wrap.appendChild(row);
+  return wrap;
+}
+
+function colorField(label, value, onInput){
+  const wrap = document.createElement('div'); wrap.className = 'field';
+  const lab = document.createElement('label'); lab.textContent = label; wrap.appendChild(lab);
+  const row = document.createElement('div'); row.className = 'color-row';
+  const colorInput = document.createElement('input'); colorInput.type = 'color'; colorInput.value = value;
+  const textInput = document.createElement('input'); textInput.type = 'text'; textInput.value = value; textInput.style.flex='1';
+  colorInput.addEventListener('input', () => { textInput.value = colorInput.value; onInput(colorInput.value); });
+  textInput.addEventListener('input', () => { onInput(textInput.value); if(/^#[0-9a-fA-F]{6}$/.test(textInput.value)) colorInput.value = textInput.value; });
+  row.appendChild(colorInput); row.appendChild(textInput);
+  wrap.appendChild(row);
+  return wrap;
+}
+
+function accordion(title, buildBody){
+  const det = document.createElement('details'); det.className = 'acc';
+  const sum = document.createElement('summary'); sum.textContent = title; det.appendChild(sum);
+  const body = document.createElement('div'); body.className = 'acc-body';
+  buildBody(body);
+  det.appendChild(body);
+  return det;
+}
+
+function arrayEditor(container, arr, itemLabel, renderItem, blankItem){
+  const list = document.createElement('div'); container.appendChild(list);
+  function redraw(){
+    list.innerHTML = '';
+    arr.forEach((item, idx) => {
+      const card = document.createElement('div'); card.className = 'item-card';
+      const rm = document.createElement('button'); rm.type='button'; rm.className='remove-btn'; rm.textContent='Remove';
+      rm.addEventListener('click', () => { arr.splice(idx,1); redraw(); });
+      card.appendChild(rm);
+      renderItem(card, item, idx);
+      list.appendChild(card);
+    });
+    const add = document.createElement('button'); add.type='button'; add.className='add-btn';
+    add.textContent = `+ Add ${itemLabel}`;
+    add.addEventListener('click', () => { arr.push(structuredClone(blankItem)); redraw(); });
+    list.appendChild(add);
+  }
+  redraw();
+}
+
+function buildEditorForm(){
+  const body = $('editorBody'); body.innerHTML = '';
+
+  body.appendChild(accordion('Top bar message', el => {
+    el.appendChild(field('Welcome text (left side)', draft.topbar.welcomeText, v => draft.topbar.welcomeText = v));
+    el.appendChild(field('Link label', draft.topbar.linkLabel, v => draft.topbar.linkLabel = v));
+    el.appendChild(field('Link target (e.g. #book)', draft.topbar.linkHref, v => draft.topbar.linkHref = v));
+  }));
+
+  body.appendChild(accordion('Brand & colors', el => {
+    el.appendChild(field('Clinic name', draft.brand.name, v => draft.brand.name = v));
+    el.appendChild(field('Tagline', draft.brand.tagline, v => draft.brand.tagline = v));
+    el.appendChild(field('Logo initials (used if no logo image)', draft.brand.logoInitials, v => draft.brand.logoInitials = v));
+    el.appendChild(imageField('Logo image (optional)', draft.brand.logoImage, v => draft.brand.logoImage = v, 'branding'));
+    el.appendChild(colorField('Dark color', draft.colors.ink, v => draft.colors.ink = v));
+    el.appendChild(colorField('Background color', draft.colors.paper, v => draft.colors.paper = v));
+    el.appendChild(colorField('Accent color', draft.colors.accent, v => draft.colors.accent = v));
+    el.appendChild(colorField('Accent hover color', draft.colors.accentInk, v => draft.colors.accentInk = v));
+    el.appendChild(colorField('Hairline color', draft.colors.line, v => draft.colors.line = v));
+  }));
+
+  body.appendChild(accordion('Contact & social', el => {
+    el.appendChild(field('Phone (display)', draft.contact.phoneDisplay, v => draft.contact.phoneDisplay = v));
+    el.appendChild(field('Phone link (tel:...)', draft.contact.phoneHref, v => draft.contact.phoneHref = v));
+    el.appendChild(field('Email', draft.contact.email, v => draft.contact.email = v));
+    el.appendChild(field('Address', draft.contact.address, v => draft.contact.address = v));
+    el.appendChild(field('Hours', draft.contact.hours, v => draft.contact.hours = v));
+    el.appendChild(field('Facebook URL', draft.social.facebook, v => draft.social.facebook = v));
+    el.appendChild(field('Instagram URL', draft.social.instagram, v => draft.social.instagram = v));
+    el.appendChild(field('Twitter/X URL', draft.social.twitter, v => draft.social.twitter = v));
+    el.appendChild(field('LinkedIn URL', draft.social.linkedin, v => draft.social.linkedin = v));
+  }));
+
+  body.appendChild(accordion('Hero slides', el => {
+    arrayEditor(el, draft.hero.slides, 'slide', (card, item) => {
+      card.appendChild(imageField('Background image', item.image, v => item.image = v, 'hero'));
+      card.appendChild(field('Small label (eyebrow)', item.eyebrow, v => item.eyebrow = v));
+      card.appendChild(field('Headline (use a line break for 2 lines)', item.headline, v => item.headline = v, 'textarea'));
+      card.appendChild(field('Text', item.text, v => item.text = v, 'textarea'));
+    }, { image:'', eyebrow:'', headline:'New headline', text:'' });
+  }));
+
+  body.appendChild(accordion('About section', el => {
+    el.appendChild(field('Eyebrow', draft.about.eyebrow, v => draft.about.eyebrow = v));
+    el.appendChild(field('Title', draft.about.title, v => draft.about.title = v));
+    el.appendChild(imageField('Photo', draft.about.image, v => draft.about.image = v, 'about'));
+    draft.about.paragraphs.forEach((p, i) => {
+      el.appendChild(field(`Paragraph ${i+1}`, p, v => draft.about.paragraphs[i] = v, 'textarea'));
+    });
+    const row = document.createElement('div'); row.className='row2';
+    draft.about.stats.forEach((s) => {
+      row.appendChild(field(s.label + ' — number', s.number, v => s.number = v));
+    });
+    el.appendChild(row);
+  }));
+
+  body.appendChild(accordion('Services', el => {
+    el.appendChild(field('Section eyebrow', draft.services.eyebrow, v => draft.services.eyebrow = v));
+    el.appendChild(field('Section title', draft.services.title, v => draft.services.title = v));
+    arrayEditor(el, draft.services.items, 'service', (card, item) => {
+      card.appendChild(field('Title', item.title, v => item.title = v));
+      card.appendChild(field('Description', item.description, v => item.description = v, 'textarea'));
+      card.appendChild(imageField('Photo', item.image, v => item.image = v, 'services'));
+    }, { title:'New service', description:'', image:'' });
+  }));
+
+  body.appendChild(accordion('Gallery', el => {
+    el.appendChild(field('Section eyebrow', draft.gallery.eyebrow, v => draft.gallery.eyebrow = v));
+    el.appendChild(field('Section title', draft.gallery.title, v => draft.gallery.title = v));
+    arrayEditor(el, draft.gallery.images, 'photo', (card, item) => {
+      card.appendChild(imageField('Photo', item.src, v => item.src = v, 'gallery'));
+      card.appendChild(field('Caption', item.caption, v => item.caption = v));
+    }, { src:'', caption:'' });
+  }));
+
+  body.appendChild(accordion('Reviews', el => {
+    el.appendChild(field('Section eyebrow', draft.reviews.eyebrow, v => draft.reviews.eyebrow = v));
+    el.appendChild(field('Section title', draft.reviews.title, v => draft.reviews.title = v));
+    arrayEditor(el, draft.reviews.items, 'review', (card, item) => {
+      card.appendChild(field('Quote', item.quote, v => item.quote = v, 'textarea'));
+      card.appendChild(field('Patient name', item.who, v => item.who = v));
+      card.appendChild(field('Rating (1–5)', item.rating, v => item.rating = Math.max(1, Math.min(5, +v || 5)), 'number'));
+    }, { quote:'', who:'Verified Patient', rating:5 });
+  }));
+
+  body.appendChild(accordion('Booking hours', el => {
+    const row = document.createElement('div'); row.className='row2';
+    row.appendChild(field('Opens (hour, 0–23)', draft.booking.startHour, v => draft.booking.startHour = +v || 0, 'number'));
+    row.appendChild(field('Closes (hour, 0–23)', draft.booking.endHour, v => draft.booking.endHour = +v || 0, 'number'));
+    el.appendChild(row);
+    el.appendChild(field('Slot length (minutes)', draft.booking.slotMinutes, v => draft.booking.slotMinutes = +v || 60, 'number'));
+  }));
+
+  body.appendChild(accordion('Navigation menu', el => {
+    arrayEditor(el, draft.nav, 'menu item', (card, item) => {
+      card.appendChild(field('Label', item.label, v => item.label = v));
+      card.appendChild(field('Link (e.g. #about)', item.href, v => item.href = v));
+    }, { label:'New link', href:'#' });
+  }));
+
+  body.appendChild(accordion('Footer', el => {
+    el.appendChild(field('About blurb', draft.footer.about, v => draft.footer.about = v, 'textarea'));
+    el.appendChild(field('Copyright line', draft.footer.copyright, v => draft.footer.copyright = v));
+  }));
+}
+
+$('editorSave').addEventListener('click', async () => {
+  if(!currentUser){ toast('Please sign in again'); return; }
+  $('editorMsg').textContent = 'Saving…';
+  try{
+    await setDoc(doc(db,'site','config'), draft);
+    $('editorMsg').textContent = 'Saved';
+    toast('Site updated');
+    setTimeout(() => closePanel('editorDrawer'), 400);
+  }catch(e){
+    $('editorMsg').textContent = 'Save failed — check Firestore rules';
+  }
+});
+
+/* ================================================================
+   BOOKINGS — public wizard + staff dashboard
+   ================================================================ */
+let bWizard = { step:1, service:null, date:null, time:null };
+
+function renderBookingServiceList(){
+  const el = $('bServiceList'); if(!el) return;
+  el.innerHTML = liveConfig.services.items.map((s,i) => `
+    <div class="b-service-opt ${bWizard.service===s.title?'selected':''}" data-title="${s.title}">
+      <span>${s.title}</span><span class="check"></span>
+    </div>`).join('');
+  el.querySelectorAll('.b-service-opt').forEach(opt => opt.addEventListener('click', () => {
+    bWizard.service = opt.dataset.title;
+    el.querySelectorAll('.b-service-opt').forEach(o => o.classList.toggle('selected', o===opt));
+    updateNextEnabled();
+  }));
+}
+
+function generateSlots(){
+  const { startHour, endHour, slotMinutes } = liveConfig.booking;
+  const slots = [];
+  let mins = startHour * 60;
+  const end = endHour * 60;
+  while(mins < end){
+    const h = Math.floor(mins/60), m = mins%60;
+    const ampm = h < 12 ? 'AM' : 'PM';
+    const h12 = ((h % 12) || 12);
+    slots.push(`${h12}:${String(m).padStart(2,'0')} ${ampm}`);
+    mins += slotMinutes;
+  }
+  return slots;
+}
+
+async function renderSlotGrid(){
+  const grid = $('bSlotGrid'); const notice = $('bSlotNotice');
+  grid.innerHTML = ''; notice.innerHTML = '';
+  const slots = generateSlots();
+  let taken = new Set();
+  if(bWizard.date){
+    try{
+      const q = query(collection(db,'bookings'), where('date','==', bWizard.date), where('service','==', bWizard.service));
+      const snap = await getDocs(q);
+      snap.forEach(d => { const b = d.data(); if(b.status !== 'cancelled') taken.add(b.time); });
+    }catch(e){ /* if rules block reads for public, we just skip the taken-slot check */ }
+  }
+  grid.innerHTML = slots.map(s => `<button type="button" class="slot-btn ${bWizard.time===s?'selected':''}" data-slot="${s}">${s}${taken.has(s)?' •':''}</button>`).join('');
+  if([...taken].length) notice.innerHTML = `<div class="b-notice warn">Slots marked • already have a request for this service — pick another time if possible.</div>`;
+  grid.querySelectorAll('.slot-btn').forEach(btn => btn.addEventListener('click', () => {
+    bWizard.time = btn.dataset.slot;
+    grid.querySelectorAll('.slot-btn').forEach(b => b.classList.toggle('selected', b===btn));
+    updateNextEnabled();
+  }));
+}
+
+function updateNextEnabled(){
+  const step = bWizard.step;
+  let ok = true;
+  if(step===1) ok = !!bWizard.service;
+  if(step===2) ok = !!$('bDate').value;
+  if(step===3) ok = !!bWizard.time;
+  $('bNext').disabled = !ok;
+}
+
+function goStep(n){
+  bWizard.step = n;
+  document.querySelectorAll('.b-step').forEach(s => s.classList.toggle('active', +s.dataset.step === n));
+  document.querySelectorAll('.booking-steps .dot').forEach(d => {
+    const ds = +d.dataset.step;
+    d.classList.toggle('active', ds===n);
+    d.classList.toggle('done', ds<n);
+  });
+  $('bBack').style.visibility = n===1 ? 'hidden' : 'visible';
+  $('bNext').textContent = n===4 ? 'Send request' : 'Next';
+  if(n===3) renderSlotGrid();
+  if(n===4){
+    $('bSummary').innerHTML = `<strong>${bWizard.service}</strong>${bWizard.date} at ${bWizard.time}`;
+  }
+  updateNextEnabled();
+}
+
+$('bDate').addEventListener('input', () => { bWizard.date = $('bDate').value; bWizard.time = null; updateNextEnabled(); });
+$('bDate').min = new Date().toISOString().split('T')[0];
+
+$('bBack').addEventListener('click', () => goStep(Math.max(1, bWizard.step - 1)));
+$('bNext').addEventListener('click', async () => {
+  if(bWizard.step < 4){ goStep(bWizard.step + 1); return; }
+  const name = $('bName').value.trim();
+  const contact = $('bContact').value.trim();
+  if(!name || !contact){ toast('Please add your name and a phone or email'); return; }
+  $('bNext').disabled = true; $('bNext').textContent = 'Sending…';
+  try{
+    await addDoc(collection(db,'bookings'), {
+      service: bWizard.service, date: bWizard.date, time: bWizard.time,
+      name, contact, notes: $('bNotes').value.trim(),
+      status: 'new', createdAt: serverTimestamp()
+    });
+    $('bookingForm').style.display = 'none';
+    $('bookingSuccess').style.display = 'block';
+    $('bSuccessText').textContent = `We'll confirm your ${bWizard.service} appointment on ${bWizard.date} at ${bWizard.time} shortly.`;
+  }catch(e){
+    toast('Could not send — please try again');
+    $('bNext').disabled = false; $('bNext').textContent = 'Send request';
+  }
+});
+$('bBookAnother').addEventListener('click', () => {
+  bWizard = { step:1, service:null, date:null, time:null };
+  $('bName').value=''; $('bContact').value=''; $('bNotes').value=''; $('bDate').value='';
+  $('bookingSuccess').style.display = 'none'; $('bookingForm').style.display = 'block';
+  renderBookingServiceList(); goStep(1);
+});
+goStep(1);
+
+/* ---- Staff bookings dashboard ---- */
+let unsubBookings = null;
+function listenBookings(){
+  if(unsubBookings) return;
+  const q = query(collection(db,'bookings'), orderBy('createdAt','desc'));
+  unsubBookings = onSnapshot(q, snap => {
+    newBookingsCount = snap.docs.filter(d => d.data().status === 'new').length;
+    renderStaffArea();
+    renderBookingsList(snap.docs);
+  }, () => {});
+}
+function stopBookingsListener(){ if(unsubBookings){ unsubBookings(); unsubBookings = null; } }
+
+function renderBookingsList(docs){
+  const el = $('bookingsBody'); if(!el) return;
+  if(!docs.length){ el.innerHTML = '<div class="bk-empty">No booking requests yet.</div>'; return; }
+  el.innerHTML = '';
+  docs.forEach(d => {
+    const b = d.data();
+    const card = document.createElement('div'); card.className = 'bk-card';
+    const when = b.createdAt?.toDate ? b.createdAt.toDate().toLocaleString() : '';
+    card.innerHTML = `
+      <div class="bk-top"><strong>${b.name}</strong><span class="status-badge status-${b.status}">${b.status}</span></div>
+      <div class="bk-meta">${b.service} · ${b.date} at ${b.time}</div>
+      <div class="bk-meta">${b.contact}${when ? ' · requested ' + when : ''}</div>
+      ${b.notes ? `<div class="bk-notes">${b.notes}</div>` : ''}
+      <div class="bk-actions">
+        <select data-id="${d.id}">
+          ${['new','confirmed','completed','cancelled'].map(s => `<option value="${s}" ${s===b.status?'selected':''}>${s}</option>`).join('')}
+        </select>
+        <button data-del="${d.id}">Delete</button>
+      </div>`;
+    el.appendChild(card);
+  });
+  el.querySelectorAll('select[data-id]').forEach(sel => sel.addEventListener('change', async () => {
+    await updateDoc(doc(db,'bookings',sel.dataset.id), { status: sel.value });
+  }));
+  el.querySelectorAll('button[data-del]').forEach(btn => btn.addEventListener('click', async () => {
+    if(confirm('Delete this booking request?')) await deleteDoc(doc(db,'bookings',btn.dataset.del));
+  }));
+}
+function openBookings(){ openPanel('bookingsDrawer'); }
+
+renderStaffArea();
+renderAll();
+</script>
+</body>
+</html>
