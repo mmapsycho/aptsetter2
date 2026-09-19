@@ -741,7 +741,8 @@ let liveContent = structuredClone(DEFAULT_CONTENT);
 let liveHours = structuredClone(DEFAULT_HOURS);
 let liveHolidays = structuredClone(DEFAULT_HOLIDAYS);
 let liveWhatsapp = structuredClone(DEFAULT_WHATSAPP);
-let liveConfig = rebuildLiveConfig();
+let liveConfig;
+rebuildLiveConfig();
 function rebuildLiveConfig(){
   liveConfig = { ...liveContent, booking: { ...liveHours, ...liveHolidays } };
   return liveConfig;
