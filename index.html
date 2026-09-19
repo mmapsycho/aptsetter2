@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Clinic Name Here — Dental Clinic</title>
 <meta name="description" content="Clinic Name Here Dental Clinic, Hurghada — comprehensive, high-quality dental care.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%B7%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%B7%3C/text%3E%3C/svg%3E" id="faviconLink">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,8 @@
 /* ============================================================
    EVERYTHING BELOW THIS LINE IS STYLE. TO EDIT CONTENT, LOG IN
    AS STAFF ON THE LIVE SITE AND USE "Edit Site" — OR EDIT THE
-   DEFAULT_CONFIG BLOCK IN THE <script> AT THE BOTTOM.
+   DEFAULT_CONTENT / DEFAULT_HOURS / DEFAULT_HOLIDAYS BLOCKS IN
+   THE <script> AT THE BOTTOM.
    ============================================================ */
 
 :root{
@@ -272,6 +273,7 @@ footer{background:#0F211C;color:#C9D2CC;padding-top:76px;}
 .modal.open{display:block;}
 .modal h3{font-size:22px;margin-bottom:6px;}
 .modal .sub{font-size:13.5px;color:var(--muted);margin-bottom:22px;}
+.sub{font-size:13px;color:var(--muted);}
 .modal .close-x{position:absolute;top:16px;right:18px;background:none;border:0;font-size:18px;color:var(--muted);}
 .modal .error{color:var(--danger);font-size:13px;margin-top:10px;display:none;}
 .modal .error.show{display:block;}
@@ -323,6 +325,41 @@ details.acc .acc-body{padding-top:16px;}
 .status-completed{background:#E1E7E4;color:#3D4A44;}
 .status-cancelled{background:#F3DEDA;color:#8A2E1E;}
 .bk-empty{text-align:center;color:var(--muted);padding:40px 0;font-size:14px;}
+
+/* ---------- Map pin bubble ---------- */
+.map-pin{display:inline-flex;align-items:center;gap:5px;margin-left:8px;font-weight:700;color:var(--accent);}
+.map-pin .pin-icon{display:inline-block;animation:pinBounce 1.6s ease-in-out infinite;}
+.map-pin .pin-label{
+  font-size:12px;font-weight:700;background:var(--accent);color:var(--ink);
+  padding:2px 9px;border-radius:12px;white-space:nowrap;
+}
+footer .map-pin .pin-label{background:var(--paper);}
+@keyframes pinBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
+
+/* ---------- WhatsApp floating button ---------- */
+.wa-float{
+  position:fixed;bottom:26px;right:26px;width:56px;height:56px;border-radius:50%;
+  background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:26px;box-shadow:0 8px 24px rgba(0,0,0,.25);z-index:90;
+}
+.wa-float:hover{background:#1DA851;}
+
+/* ---------- Staff accounts panel ---------- */
+.staff-row{border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;margin-bottom:12px;}
+.staff-row-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;}
+.staff-row-top strong{font-size:14.5px;}
+.role-badge{font-size:11px;font-weight:700;padding:2px 9px;border-radius:12px;background:var(--paper);color:var(--muted);text-transform:uppercase;}
+.role-badge.admin{background:var(--accent);color:var(--ink);}
+.perm-checks{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:10px;}
+.perm-checks label{display:flex;align-items:center;gap:6px;font-size:13px;}
+.staff-row-actions{display:flex;gap:8px;}
+.staff-row-actions button{font-size:12.5px;padding:7px 12px;border-radius:var(--radius);border:1px solid var(--line);background:none;font-weight:600;}
+.staff-row-actions button.primary{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.staff-row-actions button.danger{color:var(--danger);}
+.staff-add-box{border:1px dashed var(--line);border-radius:var(--radius);padding:18px;margin-top:20px;}
+.staff-add-box h4{font-family:var(--serif);font-size:16px;margin-bottom:14px;font-weight:500;}
+.creds-box{background:#FBF0DD;border:1px solid #EAD3A0;border-radius:var(--radius);padding:12px 14px;font-size:13px;margin-top:14px;}
+.creds-box strong{display:block;margin-bottom:4px;}
 
 .toast{
   position:fixed;bottom:26px;left:50%;transform:translateX(-50%);
@@ -454,6 +491,7 @@ details.acc .acc-body{padding-top:16px;}
           <div class="field">
             <label for="bDate">Date</label>
             <input type="date" id="bDate">
+            <div id="bDateNotice"></div>
           </div>
         </div>
 
@@ -560,6 +598,24 @@ details.acc .acc-body{padding-top:16px;}
   <div class="drawer-body" id="bookingsBody"></div>
 </div>
 
+<!-- ============ Admin: staff accounts drawer ============ -->
+<div class="drawer notranslate" translate="no" id="staffDrawer">
+  <div class="drawer-head"><h3>Staff accounts</h3><button data-close="staffDrawer">✕</button></div>
+  <div class="drawer-body" id="staffBody"></div>
+</div>
+
+<!-- ============ Admin/permitted: WhatsApp API drawer ============ -->
+<div class="drawer notranslate" translate="no" id="whatsappDrawer">
+  <div class="drawer-head"><h3>WhatsApp API</h3><button data-close="whatsappDrawer">✕</button></div>
+  <div class="drawer-body" id="whatsappBody"></div>
+  <div class="drawer-foot">
+    <button class="btn-secondary" data-close="whatsappDrawer">Cancel</button>
+    <button class="btn-primary" id="whatsappSave">Save changes</button>
+  </div>
+</div>
+
+<a class="wa-float" id="waFloat" href="#" target="_blank" rel="noopener" style="display:none;" aria-label="Chat on WhatsApp">💬</a>
+
 <div class="toast" id="toast"></div>
 
 <div id="google_translate_element" class="notranslate" translate="no" style="display:none;"></div>
@@ -575,9 +631,9 @@ details.acc .acc-body{padding-top:16px;}
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { initializeApp, deleteApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
-  getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
+  getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, createUserWithEmailAndPassword, sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
   getFirestore, doc, getDoc, setDoc, onSnapshot,
@@ -609,16 +665,17 @@ const storage = getStorage(app);
    DEFAULT CONTENT — used until (and unless) staff save changes to Firestore.
    Once staff save from "Edit site", this becomes the fallback only.
    ========================================================================= */
-const DEFAULT_CONFIG = {
+const DEFAULT_CONTENT = {
   colors: { ink:"#16302B", paper:"#FAF6EF", accent:"#C08A2E", accentInk:"#4A2E14", line:"#DED6C3" },
-  brand: { name:"Clinic Name Here", tagline:"Dental Clinic", logoImage:"", logoInitials:"MF" },
+  brand: { name:"Clinic Name Here", tagline:"Dental Clinic", logoImage:"", logoInitials:"MF", favicon:"" },
   contact: {
     phoneDisplay:"+20 100 100 0867", phoneHref:"tel:+201001000867",
     email:"clinic@example.com",
     address:"El Nasr Street, above Spinneys, 3rd floor, unit 121, Hurghada",
-    hours:"Open daily, 11:00 AM – 11:00 PM"
+    hours:"Open daily, 11:00 AM – 11:00 PM",
+    mapUrl:""
   },
-  social: { facebook:"https://www.facebook.com/", instagram:"https://www.instagram.com/", twitter:"", linkedin:"" },
+  social: { facebook:"https://www.facebook.com/", instagram:"https://www.instagram.com/", twitter:"", linkedin:"", whatsapp:"" },
   nav: [
     { label:"Home", href:"#home" }, { label:"About", href:"#about" },
     { label:"Services", href:"#services" }, { label:"Gallery", href:"#gallery" },
@@ -667,14 +724,33 @@ const DEFAULT_CONFIG = {
       { quote:"Booked an appointment the same week and was seen right on time. Highly recommend.", who:"Verified Patient", rating:5 }
     ]
   },
-  booking: { slotMinutes:60, startHour:11, endHour:23 },
   cta: { text:"Ready for a healthier, more confident smile?", buttonLabel:"Book an Appointment" },
   footer: { about:"Clinic Name Here Dental Clinic offers comprehensive, high-quality dental care for a healthy, confident smile.", copyright:"Copyright © 2026 Clinic Name Here. All rights reserved.", creditLine:"" }
 };
 
-let liveConfig = structuredClone(DEFAULT_CONFIG);
+const DEFAULT_HOURS = { slotMinutes:60, startHour:11, endHour:23 };
+const DEFAULT_HOLIDAYS = { closedWeekdays: [], holidays: [] }; // holidays: [{date:'2026-12-25', label:'Christmas'}]
+const DEFAULT_WHATSAPP = {
+  enabled: false,
+  phone: "",   // the clinic's WhatsApp number, digits only with country code, e.g. 201001000867
+  apiKey: "",  // from CallMeBot after you activate it (see the WhatsApp API panel for steps)
+  template: "New booking request:\n{service}\n{date} at {time}\nFrom: {name} — {contact}\nNotes: {notes}"
+};
+
+let liveContent = structuredClone(DEFAULT_CONTENT);
+let liveHours = structuredClone(DEFAULT_HOURS);
+let liveHolidays = structuredClone(DEFAULT_HOLIDAYS);
+let liveWhatsapp = structuredClone(DEFAULT_WHATSAPP);
+let liveConfig = rebuildLiveConfig();
+function rebuildLiveConfig(){
+  liveConfig = { ...liveContent, booking: { ...liveHours, ...liveHolidays } };
+  return liveConfig;
+}
 let currentUser = null;
+let currentPerms = null; // { role:'admin'|'staff', permissions:{editSite,bookings,hours,holidays,whatsapp} }
 let newBookingsCount = 0;
+function isAdmin(){ return currentPerms && currentPerms.role === 'admin'; }
+function hasPerm(key){ return !!currentPerms && (isAdmin() || !!(currentPerms.permissions && currentPerms.permissions[key])); }
 
 const $ = id => document.getElementById(id);
 function toast(msg){
@@ -693,6 +769,17 @@ function mergeDeep(base, extra){
   return extra === undefined ? base : extra;
 }
 
+// Lets any image field be a full URL, a root-relative path, a path with a
+// folder already in it, OR just a bare filename — in which case it's assumed
+// to live in an "images/" folder committed next to index.html in the repo.
+function resolveImg(v){
+  if(!v) return '';
+  if(/^(https?:|data:)/i.test(v)) return v;
+  if(v.startsWith('/') || v.includes('/')) return v;
+  return 'images/' + v;
+}
+const FAVICON_DEFAULT = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%B7%3C/text%3E%3C/svg%3E";
+
 /* ================================================================
    RENDER — builds the whole page from liveConfig.
    ================================================================ */
@@ -706,9 +793,11 @@ function renderAll(){
   root.setProperty('--line', c.colors.line);
 
   const starIcons = n => "★".repeat(n) + "☆".repeat(5-n);
+  const waLink = v => { if(!v) return ''; if(/^https?:\/\//i.test(v)) return v; return `https://wa.me/${v.replace(/[^\d]/g,'')}`; };
+  const mapPin = c.contact.mapUrl ? `<a class="map-pin" href="${c.contact.mapUrl}" target="_blank" rel="noopener"><span class="pin-icon">📍</span><span class="pin-label">Check on Maps</span></a>` : '';
 
   $('welcomeMsg').innerHTML = `${c.topbar.welcomeText} <a href="${c.topbar.linkHref}">${c.topbar.linkLabel}</a>`;
-  const infoHtml = `<span>📍 ${c.contact.address}</span><span>✉️ <a href="mailto:${c.contact.email}">${c.contact.email}</a></span><span>🕐 ${c.contact.hours}</span>`;
+  const infoHtml = `<span>📍 ${c.contact.address}${mapPin}</span><span>✉️ <a href="mailto:${c.contact.email}">${c.contact.email}</a></span><span>🕐 ${c.contact.hours}</span>`;
   // preserve staffArea node
   const staffAreaNode = $('staffArea');
   $('topInfo').innerHTML = infoHtml;
@@ -716,12 +805,13 @@ function renderAll(){
 
   function brandHtml(dark){
     const logo = c.brand.logoImage
-      ? `<img class="logo-img" src="${c.brand.logoImage}" alt="${c.brand.name} logo">`
+      ? `<img class="logo-img" src="${resolveImg(c.brand.logoImage)}" alt="${c.brand.name} logo">`
       : `<div class="mark">${c.brand.logoInitials}</div>`;
     return `${logo}<div class="name" style="${dark ? 'color:var(--paper)' : ''}">${c.brand.name}<small>${c.brand.tagline}</small></div>`;
   }
   $('brandBlock').innerHTML = brandHtml(false);
   $('footerBrand').innerHTML = brandHtml(true);
+  $('faviconLink').href = c.brand.favicon ? resolveImg(c.brand.favicon) : FAVICON_DEFAULT;
 
   $('mainNav').innerHTML = c.nav.map(n => `<a href="${n.href}">${n.label}</a>`).join('');
   $('mobileNav').innerHTML = c.nav.map(n => `<a href="${n.href}">${n.label}</a>`).join('');
@@ -730,7 +820,7 @@ function renderAll(){
   const heroWrap = $('heroSlides');
   heroWrap.innerHTML = c.hero.slides.map((s,i) => `
     <div class="hero-slide ${i===0?'active':''}" data-i="${i}">
-      <div class="bg" style="background-image:url('${s.image}')"></div>
+      <div class="bg" style="background-image:url('${resolveImg(s.image)}')"></div>
       <div class="wrap">
         <div class="hero-content">
           <div class="hero-eyebrow">${s.eyebrow}</div>
@@ -759,19 +849,19 @@ function renderAll(){
 
   $('aboutEyebrow').textContent = c.about.eyebrow;
   $('aboutTitle').textContent = c.about.title;
-  $('aboutImg').src = c.about.image;
+  $('aboutImg').src = resolveImg(c.about.image);
   $('aboutText').innerHTML = c.about.paragraphs.map(p => `<p>${p}</p>`).join('');
   $('aboutStats').innerHTML = c.about.stats.map(s => `<div><strong>${s.number}</strong><span>${s.label}</span></div>`).join('');
 
   $('servicesEyebrow').textContent = c.services.eyebrow;
   $('servicesTitle').textContent = c.services.title;
   $('servicesList').innerHTML = c.services.items.map(s => `
-    <div class="service-row"><div class="thumb"><img src="${s.image}" alt="${s.title}"></div><div><h3>${s.title}</h3><p>${s.description}</p></div><div class="arrow">→</div></div>`).join('');
+    <div class="service-row"><div class="thumb"><img src="${resolveImg(s.image)}" alt="${s.title}"></div><div><h3>${s.title}</h3><p>${s.description}</p></div><div class="arrow">→</div></div>`).join('');
   $('footerServices').innerHTML = c.services.items.map(s => `<li><a href="#services">${s.title}</a></li>`).join('');
 
   $('galleryEyebrow').textContent = c.gallery.eyebrow;
   $('galleryTitle').textContent = c.gallery.title;
-  $('galleryGrid').innerHTML = c.gallery.images.map(g => `<figure><img src="${g.src}" alt="${g.caption}"><figcaption>${g.caption}</figcaption></figure>`).join('');
+  $('galleryGrid').innerHTML = c.gallery.images.map(g => `<figure><img src="${resolveImg(g.src)}" alt="${g.caption}"><figcaption>${g.caption}</figcaption></figure>`).join('');
 
   $('reviewsEyebrow').textContent = c.reviews.eyebrow;
   $('reviewsTitle').textContent = c.reviews.title;
@@ -783,8 +873,12 @@ function renderAll(){
 
   $('footerAbout').textContent = c.footer.about;
   $('footerSocial').innerHTML = Object.entries(c.social).filter(([,url]) => url)
-    .map(([key,url]) => `<a href="${url}" aria-label="${key}">${({facebook:'f',instagram:'ig',twitter:'x',linkedin:'in'})[key] || key[0]}</a>`).join('');
-  $('footerContact').innerHTML = `<li>${c.contact.address}</li><li><a href="${c.contact.phoneHref}">${c.contact.phoneDisplay}</a></li><li><a href="mailto:${c.contact.email}">${c.contact.email}</a></li><li>${c.contact.hours}</li>`;
+    .map(([key,url]) => `<a href="${key==='whatsapp' ? waLink(url) : url}" target="_blank" rel="noopener" aria-label="${key}">${({facebook:'f',instagram:'ig',twitter:'x',linkedin:'in',whatsapp:'wa'})[key] || key[0]}</a>`).join('');
+  $('footerContact').innerHTML = `<li>${c.contact.address}${mapPin}</li><li><a href="${c.contact.phoneHref}">${c.contact.phoneDisplay}</a></li><li><a href="mailto:${c.contact.email}">${c.contact.email}</a></li><li>${c.contact.hours}</li>`;
+
+  const waFloat = $('waFloat');
+  if(c.social.whatsapp){ waFloat.href = waLink(c.social.whatsapp); waFloat.style.display = 'flex'; }
+  else { waFloat.style.display = 'none'; }
   $('footerCopy').textContent = c.footer.copyright;
   $('footerCredit').textContent = c.footer.creditLine || '';
 
@@ -845,27 +939,57 @@ document.querySelectorAll('#langMenu button').forEach(btn => {
 })();
 
 /* ================================================================
-   AUTH — staff login
+   AUTH — staff login + permission-aware UI
    ================================================================ */
 function renderStaffArea(){
   const el = $('staffArea');
   if(currentUser){
+    const canEdit = hasPerm('editSite') || hasPerm('hours') || hasPerm('holidays');
+    const canBookings = hasPerm('bookings');
+    const canWhatsapp = hasPerm('whatsapp');
+    const admin = isAdmin();
+    if(!canEdit && !canBookings && !canWhatsapp && !admin){
+      el.innerHTML = `
+        <div class="staff-pill">
+          <span class="who">Signed in: ${currentUser.email} (no access granted yet)</span>
+          <button id="btnSignOut">Sign out</button>
+        </div>`;
+      $('btnSignOut').addEventListener('click', () => signOut(auth));
+      return;
+    }
     el.innerHTML = `
       <div class="staff-pill">
-        <span class="who">Staff: ${currentUser.email}</span>
-        <button id="btnEditSite">Edit site</button>
-        <button id="btnBookings">Bookings${newBookingsCount ? `<span class="booking-badge">${newBookingsCount}</span>` : ''}</button>
+        <span class="who">Staff: ${currentUser.email}${admin ? ' · Admin' : ''}</span>
+        ${canEdit ? `<button id="btnEditSite">Edit site</button>` : ''}
+        ${canBookings ? `<button id="btnBookings">Bookings${newBookingsCount ? `<span class="booking-badge">${newBookingsCount}</span>` : ''}</button>` : ''}
+        ${canWhatsapp ? `<button id="btnWhatsappApi">WhatsApp API</button>` : ''}
+        ${admin ? `<button id="btnStaffAccounts">Staff accounts</button>` : ''}
         <button id="btnSignOut">Sign out</button>
       </div>`;
-    $('btnEditSite').addEventListener('click', openEditor);
-    $('btnBookings').addEventListener('click', openBookings);
+    if(canEdit) $('btnEditSite').addEventListener('click', openEditor);
+    if(canBookings) $('btnBookings').addEventListener('click', openBookings);
+    if(canWhatsapp) $('btnWhatsappApi').addEventListener('click', openWhatsappSettings);
+    if(admin) $('btnStaffAccounts').addEventListener('click', openStaffAccounts);
     $('btnSignOut').addEventListener('click', () => signOut(auth));
   } else {
     el.innerHTML = `<a href="#" class="staff-link" id="btnStaffLogin">Staff Login</a>`;
     $('btnStaffLogin').addEventListener('click', e => { e.preventDefault(); openPanel('loginModal'); });
   }
 }
-onAuthStateChanged(auth, user => { currentUser = user; renderStaffArea(); if(user) listenBookings(); else stopBookingsListener(); });
+
+onAuthStateChanged(auth, async user => {
+  currentUser = user;
+  currentPerms = null;
+  if(user){
+    try{
+      const snap = await getDoc(doc(db,'staff',user.uid));
+      currentPerms = snap.exists() ? snap.data() : { role:'staff', permissions:{} };
+    }catch(e){ currentPerms = { role:'staff', permissions:{} }; }
+  }
+  renderStaffArea();
+  if(user && hasPerm('bookings')) listenBookings(); else stopBookingsListener();
+  if(user && isAdmin()) listenStaffList(); else stopStaffListener();
+});
 
 $('loginSubmit').addEventListener('click', async () => {
   const email = $('loginEmail').value.trim();
@@ -881,13 +1005,29 @@ $('loginSubmit').addEventListener('click', async () => {
   }
 });
 
+
 /* ================================================================
-   LIVE SITE CONTENT — Firestore-backed
+   LIVE SITE CONTENT — Firestore-backed (3 docs so permissions can
+   be scoped separately: general content, hours, holidays/closures)
    ================================================================ */
-onSnapshot(doc(db,'site','config'), snap => {
-  liveConfig = snap.exists() ? mergeDeep(DEFAULT_CONFIG, snap.data()) : structuredClone(DEFAULT_CONFIG);
-  renderAll();
-}, () => { liveConfig = structuredClone(DEFAULT_CONFIG); renderAll(); });
+onSnapshot(doc(db,'site','content'), snap => {
+  liveContent = snap.exists() ? mergeDeep(DEFAULT_CONTENT, snap.data()) : structuredClone(DEFAULT_CONTENT);
+  rebuildLiveConfig(); renderAll();
+}, () => { liveContent = structuredClone(DEFAULT_CONTENT); rebuildLiveConfig(); renderAll(); });
+
+onSnapshot(doc(db,'site','hours'), snap => {
+  liveHours = snap.exists() ? mergeDeep(DEFAULT_HOURS, snap.data()) : structuredClone(DEFAULT_HOURS);
+  rebuildLiveConfig(); renderAll();
+}, () => { liveHours = structuredClone(DEFAULT_HOURS); rebuildLiveConfig(); renderAll(); });
+
+onSnapshot(doc(db,'site','holidays'), snap => {
+  liveHolidays = snap.exists() ? mergeDeep(DEFAULT_HOLIDAYS, snap.data()) : structuredClone(DEFAULT_HOLIDAYS);
+  rebuildLiveConfig(); renderAll();
+}, () => { liveHolidays = structuredClone(DEFAULT_HOLIDAYS); rebuildLiveConfig(); renderAll(); });
+
+onSnapshot(doc(db,'site','whatsapp'), snap => {
+  liveWhatsapp = snap.exists() ? mergeDeep(DEFAULT_WHATSAPP, snap.data()) : structuredClone(DEFAULT_WHATSAPP);
+}, () => { liveWhatsapp = structuredClone(DEFAULT_WHATSAPP); });
 
 /* ================================================================
    SITE EDITOR
@@ -917,8 +1057,14 @@ function imageField(label, value, onInput, pathPrefix){
   const lab = document.createElement('label'); lab.textContent = label; wrap.appendChild(lab);
   const row = document.createElement('div'); row.className = 'upload-row';
   const inputWrap = document.createElement('div'); inputWrap.className = 'field';
-  const input = document.createElement('input'); input.type = 'text'; input.value = value ?? ''; input.placeholder = 'Image URL';
+  const input = document.createElement('input'); input.type = 'text'; input.value = value ?? ''; input.placeholder = 'filename.jpg or a full image URL';
+  function normalize(v){
+    const val = v.trim();
+    if(!val || /^https?:\/\//i.test(val) || val.startsWith('data:') || val.includes('/')) return val;
+    return 'images/' + val; // bare filename → assume it's in the repo's /images folder
+  }
   input.addEventListener('input', () => onInput(input.value));
+  input.addEventListener('blur', () => { const n = normalize(input.value); if(n !== input.value){ input.value = n; onInput(n); } });
   inputWrap.appendChild(input);
   const upBtn = document.createElement('button'); upBtn.type='button'; upBtn.className='upload-btn'; upBtn.textContent='Upload';
   const fileInput = document.createElement('input'); fileInput.type='file'; fileInput.accept='image/*'; fileInput.style.display='none';
@@ -938,6 +1084,10 @@ function imageField(label, value, onInput, pathPrefix){
   });
   row.appendChild(inputWrap); row.appendChild(upBtn); row.appendChild(fileInput);
   wrap.appendChild(row);
+  const hint = document.createElement('div');
+  hint.style.cssText = 'font-size:12px;color:var(--muted);margin-top:4px;';
+  hint.textContent = "Type just a filename (e.g. front-desk.jpg) if you've added the photo to the images/ folder in the GitHub repo, paste a full image URL, or use Upload.";
+  wrap.appendChild(hint);
   return wrap;
 }
 
@@ -985,7 +1135,11 @@ function arrayEditor(container, arr, itemLabel, renderItem, blankItem){
 
 function buildEditorForm(){
   const body = $('editorBody'); body.innerHTML = '';
+  const canSite = hasPerm('editSite');
+  const canHours = hasPerm('hours');
+  const canHolidays = hasPerm('holidays');
 
+  if(canSite){
   body.appendChild(accordion('Top bar message', el => {
     el.appendChild(field('Welcome text (left side)', draft.topbar.welcomeText, v => draft.topbar.welcomeText = v));
     el.appendChild(field('Link label', draft.topbar.linkLabel, v => draft.topbar.linkLabel = v));
@@ -997,6 +1151,7 @@ function buildEditorForm(){
     el.appendChild(field('Tagline', draft.brand.tagline, v => draft.brand.tagline = v));
     el.appendChild(field('Logo initials (used if no logo image)', draft.brand.logoInitials, v => draft.brand.logoInitials = v));
     el.appendChild(imageField('Logo image (optional)', draft.brand.logoImage, v => draft.brand.logoImage = v, 'branding'));
+    el.appendChild(imageField('Favicon / browser tab icon (optional)', draft.brand.favicon, v => draft.brand.favicon = v, 'branding'));
     el.appendChild(colorField('Dark color', draft.colors.ink, v => draft.colors.ink = v));
     el.appendChild(colorField('Background color', draft.colors.paper, v => draft.colors.paper = v));
     el.appendChild(colorField('Accent color', draft.colors.accent, v => draft.colors.accent = v));
@@ -1009,11 +1164,13 @@ function buildEditorForm(){
     el.appendChild(field('Phone link (tel:...)', draft.contact.phoneHref, v => draft.contact.phoneHref = v));
     el.appendChild(field('Email', draft.contact.email, v => draft.contact.email = v));
     el.appendChild(field('Address', draft.contact.address, v => draft.contact.address = v));
-    el.appendChild(field('Hours', draft.contact.hours, v => draft.contact.hours = v));
+    el.appendChild(field('Hours (display text)', draft.contact.hours, v => draft.contact.hours = v));
+    el.appendChild(field('Google Maps link (for the "Check on Maps" pin)', draft.contact.mapUrl, v => draft.contact.mapUrl = v));
     el.appendChild(field('Facebook URL', draft.social.facebook, v => draft.social.facebook = v));
     el.appendChild(field('Instagram URL', draft.social.instagram, v => draft.social.instagram = v));
     el.appendChild(field('Twitter/X URL', draft.social.twitter, v => draft.social.twitter = v));
     el.appendChild(field('LinkedIn URL', draft.social.linkedin, v => draft.social.linkedin = v));
+    el.appendChild(field('WhatsApp (phone number or wa.me link)', draft.social.whatsapp, v => draft.social.whatsapp = v));
   }));
 
   body.appendChild(accordion('Hero slides', el => {
@@ -1068,14 +1225,6 @@ function buildEditorForm(){
     }, { quote:'', who:'Verified Patient', rating:5 });
   }));
 
-  body.appendChild(accordion('Booking hours', el => {
-    const row = document.createElement('div'); row.className='row2';
-    row.appendChild(field('Opens (hour, 0–23)', draft.booking.startHour, v => draft.booking.startHour = +v || 0, 'number'));
-    row.appendChild(field('Closes (hour, 0–23)', draft.booking.endHour, v => draft.booking.endHour = +v || 0, 'number'));
-    el.appendChild(row);
-    el.appendChild(field('Slot length (minutes)', draft.booking.slotMinutes, v => draft.booking.slotMinutes = +v || 60, 'number'));
-  }));
-
   body.appendChild(accordion('Navigation menu', el => {
     arrayEditor(el, draft.nav, 'menu item', (card, item) => {
       card.appendChild(field('Label', item.label, v => item.label = v));
@@ -1087,18 +1236,70 @@ function buildEditorForm(){
     el.appendChild(field('About blurb', draft.footer.about, v => draft.footer.about = v, 'textarea'));
     el.appendChild(field('Copyright line', draft.footer.copyright, v => draft.footer.copyright = v));
   }));
+  } // end canSite
+
+  if(canHours){
+  body.appendChild(accordion('Opening hours', el => {
+    const row = document.createElement('div'); row.className='row2';
+    row.appendChild(field('Opens (hour, 0–23)', draft.booking.startHour, v => draft.booking.startHour = +v || 0, 'number'));
+    row.appendChild(field('Closes (hour, 0–23)', draft.booking.endHour, v => draft.booking.endHour = +v || 0, 'number'));
+    el.appendChild(row);
+    el.appendChild(field('Slot length (minutes)', draft.booking.slotMinutes, v => draft.booking.slotMinutes = +v || 60, 'number'));
+  }));
+  }
+
+  if(canHolidays){
+  body.appendChild(accordion('Blocked days & holidays', el => {
+    const wkLabel = document.createElement('div'); wkLabel.className='field';
+    const lab = document.createElement('label'); lab.textContent = 'Closed every week on'; wkLabel.appendChild(lab);
+    const wkRow = document.createElement('div'); wkRow.style.cssText='display:flex;flex-wrap:wrap;gap:8px;';
+    ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach((name, idx) => {
+      const btn = document.createElement('button'); btn.type='button';
+      btn.className = 'slot-btn' + (draft.booking.closedWeekdays.includes(idx) ? ' selected' : '');
+      btn.style.flex = '0 0 auto'; btn.textContent = name;
+      btn.addEventListener('click', () => {
+        const i = draft.booking.closedWeekdays.indexOf(idx);
+        if(i > -1) draft.booking.closedWeekdays.splice(i,1); else draft.booking.closedWeekdays.push(idx);
+        btn.classList.toggle('selected');
+      });
+      wkRow.appendChild(btn);
+    });
+    wkLabel.appendChild(wkRow);
+    el.appendChild(wkLabel);
+
+    const holLabel = document.createElement('div'); holLabel.style.cssText = 'font-weight:600;font-size:13px;color:var(--muted);margin:18px 0 4px;';
+    holLabel.textContent = 'Specific closed dates (holidays, vacation, etc.)';
+    el.appendChild(holLabel);
+    arrayEditor(el, draft.booking.holidays, 'closed date', (card, item) => {
+      card.appendChild(field('Date', item.date, v => item.date = v, 'date'));
+      card.appendChild(field('Label (optional)', item.label, v => item.label = v));
+    }, { date:'', label:'Holiday' });
+  }));
+  }
 }
 
 $('editorSave').addEventListener('click', async () => {
   if(!currentUser){ toast('Please sign in again'); return; }
   $('editorMsg').textContent = 'Saving…';
-  try{
-    await setDoc(doc(db,'site','config'), draft);
+  const jobs = [];
+  if(hasPerm('editSite')){
+    const content = structuredClone(draft); delete content.booking;
+    jobs.push(setDoc(doc(db,'site','content'), content));
+  }
+  if(hasPerm('hours')){
+    jobs.push(setDoc(doc(db,'site','hours'), { startHour: draft.booking.startHour, endHour: draft.booking.endHour, slotMinutes: draft.booking.slotMinutes }));
+  }
+  if(hasPerm('holidays')){
+    jobs.push(setDoc(doc(db,'site','holidays'), { closedWeekdays: draft.booking.closedWeekdays, holidays: draft.booking.holidays }));
+  }
+  const results = await Promise.allSettled(jobs);
+  const failed = results.filter(r => r.status === 'rejected');
+  if(failed.length){
+    $('editorMsg').textContent = 'Some changes failed to save — check Firestore rules';
+  }else{
     $('editorMsg').textContent = 'Saved';
     toast('Site updated');
     setTimeout(() => closePanel('editorDrawer'), 400);
-  }catch(e){
-    $('editorMsg').textContent = 'Save failed — check Firestore rules';
   }
 });
 
@@ -1156,11 +1357,21 @@ async function renderSlotGrid(){
   }));
 }
 
+function isDateBlocked(dateStr){
+  if(!dateStr) return null;
+  const [y,m,d] = dateStr.split('-').map(Number);
+  const dow = new Date(y, m-1, d).getDay();
+  if(liveConfig.booking.closedWeekdays && liveConfig.booking.closedWeekdays.includes(dow)) return "The clinic is closed on this day of the week.";
+  const hol = (liveConfig.booking.holidays || []).find(h => h.date === dateStr);
+  if(hol) return `The clinic is closed on this date${hol.label ? ' — ' + hol.label : ''}.`;
+  return null;
+}
+
 function updateNextEnabled(){
   const step = bWizard.step;
   let ok = true;
   if(step===1) ok = !!bWizard.service;
-  if(step===2) ok = !!$('bDate').value;
+  if(step===2) ok = !!$('bDate').value && !isDateBlocked($('bDate').value);
   if(step===3) ok = !!bWizard.time;
   $('bNext').disabled = !ok;
 }
@@ -1182,8 +1393,14 @@ function goStep(n){
   updateNextEnabled();
 }
 
-$('bDate').addEventListener('input', () => { bWizard.date = $('bDate').value; bWizard.time = null; updateNextEnabled(); });
+$('bDate').addEventListener('input', () => {
+  bWizard.date = $('bDate').value; bWizard.time = null;
+  const blocked = isDateBlocked(bWizard.date);
+  $('bDateNotice').innerHTML = blocked ? `<div class="b-notice warn">${blocked} Please choose another date.</div>` : '';
+  updateNextEnabled();
+});
 $('bDate').min = new Date().toISOString().split('T')[0];
+
 
 $('bBack').addEventListener('click', () => goStep(Math.max(1, bWizard.step - 1)));
 $('bNext').addEventListener('click', async () => {
@@ -1192,12 +1409,14 @@ $('bNext').addEventListener('click', async () => {
   const contact = $('bContact').value.trim();
   if(!name || !contact){ toast('Please add your name and a phone or email'); return; }
   $('bNext').disabled = true; $('bNext').textContent = 'Sending…';
+  const notes = $('bNotes').value.trim();
   try{
     await addDoc(collection(db,'bookings'), {
       service: bWizard.service, date: bWizard.date, time: bWizard.time,
-      name, contact, notes: $('bNotes').value.trim(),
+      name, contact, notes,
       status: 'new', createdAt: serverTimestamp()
     });
+    notifyWhatsApp({ service: bWizard.service, date: bWizard.date, time: bWizard.time, name, contact, notes });
     $('bookingForm').style.display = 'none';
     $('bookingSuccess').style.display = 'block';
     $('bSuccessText').textContent = `We'll confirm your ${bWizard.service} appointment on ${bWizard.date} at ${bWizard.time} shortly.`;
@@ -1208,7 +1427,7 @@ $('bNext').addEventListener('click', async () => {
 });
 $('bBookAnother').addEventListener('click', () => {
   bWizard = { step:1, service:null, date:null, time:null };
-  $('bName').value=''; $('bContact').value=''; $('bNotes').value=''; $('bDate').value='';
+  $('bName').value=''; $('bContact').value=''; $('bNotes').value=''; $('bDate').value=''; $('bDateNotice').innerHTML='';
   $('bookingSuccess').style.display = 'none'; $('bookingForm').style.display = 'block';
   renderBookingServiceList(); goStep(1);
 });
@@ -1256,6 +1475,186 @@ function renderBookingsList(docs){
   }));
 }
 function openBookings(){ openPanel('bookingsDrawer'); }
+
+/* ================================================================
+   WHATSAPP NOTIFICATIONS — via CallMeBot's free WhatsApp API.
+   Runs entirely client-side (no backend), so it fires straight from
+   the visitor's browser after a booking is saved.
+   ================================================================ */
+function buildWhatsAppMessage(b, template){
+  return (template || DEFAULT_WHATSAPP.template)
+    .replaceAll('{service}', b.service || '')
+    .replaceAll('{date}', b.date || '')
+    .replaceAll('{time}', b.time || '')
+    .replaceAll('{name}', b.name || '')
+    .replaceAll('{contact}', b.contact || '')
+    .replaceAll('{notes}', b.notes || '(none)');
+}
+async function sendCallMeBot(phone, apiKey, text){
+  const url = `https://api.callmebot.com/whatsapp.php?phone=${encodeURIComponent(phone)}&text=${encodeURIComponent(text)}&apikey=${encodeURIComponent(apiKey)}`;
+  try{ await fetch(url); }catch(e){ /* CORS may block reading the response even though the message still sends */ }
+}
+function notifyWhatsApp(booking){
+  if(!liveWhatsapp.enabled || !liveWhatsapp.phone || !liveWhatsapp.apiKey) return;
+  sendCallMeBot(liveWhatsapp.phone, liveWhatsapp.apiKey, buildWhatsAppMessage(booking, liveWhatsapp.template));
+}
+
+let waDraft = null;
+function openWhatsappSettings(){
+  waDraft = structuredClone(liveWhatsapp);
+  const body = $('whatsappBody'); body.innerHTML = '';
+
+  const info = document.createElement('div');
+  info.className = 'b-notice warn';
+  info.innerHTML = `This uses <strong>CallMeBot</strong>, a free WhatsApp notification service. One-time setup: 1) Save the CallMeBot number shown at <a href="https://www.callmebot.com/blog/free-api-whatsapp-messages/" target="_blank" rel="noopener">callmebot.com</a> to your phone's contacts. 2) From the clinic's WhatsApp, message that contact: "I allow callmebot to send me messages". 3) CallMeBot replies with your API key — enter it below along with the clinic's WhatsApp number.`;
+  body.appendChild(info);
+
+  const enableWrap = document.createElement('div'); enableWrap.className = 'field';
+  enableWrap.innerHTML = `<label><input type="checkbox" id="waEnabled" ${waDraft.enabled ? 'checked' : ''}> Send a WhatsApp message for every new booking</label>`;
+  body.appendChild(enableWrap);
+  enableWrap.querySelector('#waEnabled').addEventListener('change', e => waDraft.enabled = e.target.checked);
+
+  body.appendChild(field('Clinic WhatsApp number (digits only, with country code, e.g. 201001000867)', waDraft.phone, v => waDraft.phone = v));
+  body.appendChild(field('CallMeBot API key', waDraft.apiKey, v => waDraft.apiKey = v));
+  body.appendChild(field('Message template', waDraft.template, v => waDraft.template = v, 'textarea'));
+
+  const hint = document.createElement('p'); hint.className = 'sub';
+  hint.textContent = 'Placeholders: {service} {date} {time} {name} {contact} {notes}';
+  body.appendChild(hint);
+
+  const testBtn = document.createElement('button'); testBtn.type = 'button'; testBtn.className = 'btn-secondary'; testBtn.textContent = 'Send test message'; testBtn.style.marginTop = '10px';
+  testBtn.addEventListener('click', async () => {
+    if(!waDraft.phone || !waDraft.apiKey){ toast('Add a phone number and API key first'); return; }
+    testBtn.textContent = 'Sending…'; testBtn.disabled = true;
+    await sendCallMeBot(waDraft.phone, waDraft.apiKey, buildWhatsAppMessage({ service:'Test service', date:'today', time:'now', name:'Test', contact:'test', notes:'This is a test message.' }, waDraft.template));
+    toast('Test message sent — check WhatsApp');
+    testBtn.textContent = 'Send test message'; testBtn.disabled = false;
+  });
+  body.appendChild(testBtn);
+
+  openPanel('whatsappDrawer');
+}
+$('whatsappSave').addEventListener('click', async () => {
+  try{
+    await setDoc(doc(db,'site','whatsapp'), waDraft);
+    toast('WhatsApp settings saved');
+    closePanel('whatsappDrawer');
+  }catch(e){ toast('Save failed — check Firestore rules'); }
+});
+
+/* ================================================================
+   STAFF ACCOUNTS — admin only. Creates Auth users via a throwaway
+   secondary Firebase app so the admin's own session isn't disturbed,
+   then stores role/permissions in Firestore (staff/{uid}).
+   ================================================================ */
+const PERM_KEYS = [
+  { key:'editSite', label:'Edit site content' },
+  { key:'bookings', label:'Manage bookings' },
+  { key:'hours', label:'Edit opening hours' },
+  { key:'holidays', label:'Block days / holidays' },
+  { key:'whatsapp', label:'WhatsApp API settings' }
+];
+
+let unsubStaff = null;
+function listenStaffList(){
+  if(unsubStaff) return;
+  unsubStaff = onSnapshot(collection(db,'staff'), snap => renderStaffList(snap.docs), () => {});
+}
+function stopStaffListener(){ if(unsubStaff){ unsubStaff(); unsubStaff = null; } }
+
+function renderStaffList(docs){
+  const el = $('staffBody'); if(!el) return;
+  el.innerHTML = '';
+
+  docs.forEach(d => {
+    const s = d.data();
+    const admin = s.role === 'admin';
+    const row = document.createElement('div'); row.className = 'staff-row';
+    row.innerHTML = `
+      <div class="staff-row-top">
+        <strong>${s.email || d.id}</strong>
+        <span class="role-badge ${admin?'admin':''}">${admin ? 'Admin' : 'Staff'}</span>
+      </div>
+      <div class="perm-checks">
+        ${PERM_KEYS.map(p => `
+          <label><input type="checkbox" data-perm="${p.key}" ${admin || (s.permissions && s.permissions[p.key]) ? 'checked' : ''} ${admin ? 'disabled' : ''}> ${p.label}</label>
+        `).join('')}
+      </div>
+      <div class="staff-row-actions">
+        <button type="button" data-save class="primary">Save permissions</button>
+        <button type="button" data-toggle-admin>${admin ? 'Remove admin' : 'Make admin'}</button>
+        <button type="button" data-revoke class="danger">Revoke access</button>
+      </div>`;
+    if(d.id === currentUser?.uid){
+      row.querySelectorAll('button[data-toggle-admin], button[data-revoke]').forEach(b => b.disabled = true);
+    }
+    row.querySelector('[data-save]').addEventListener('click', async () => {
+      const permissions = {};
+      row.querySelectorAll('input[data-perm]').forEach(cb => permissions[cb.dataset.perm] = cb.checked);
+      await updateDoc(doc(db,'staff',d.id), { permissions });
+      toast('Permissions updated');
+    });
+    row.querySelector('[data-toggle-admin]').addEventListener('click', async () => {
+      await updateDoc(doc(db,'staff',d.id), { role: admin ? 'staff' : 'admin' });
+      toast(admin ? 'Admin removed' : 'Now an admin');
+    });
+    row.querySelector('[data-revoke]').addEventListener('click', async () => {
+      if(confirm(`Revoke ${s.email || d.id}'s access? Their login will still exist, but they'll no longer be able to edit or view anything.`)){
+        await deleteDoc(doc(db,'staff',d.id));
+        toast('Access revoked');
+      }
+    });
+    el.appendChild(row);
+  });
+
+  const addBox = document.createElement('div'); addBox.className = 'staff-add-box';
+  addBox.innerHTML = `
+    <h4>+ Add staff account</h4>
+    <div class="field"><label>Email</label><input type="email" id="newStaffEmail"></div>
+    <div class="field"><label>Temporary password (share this with them)</label><input type="text" id="newStaffPass" placeholder="At least 6 characters"></div>
+    <div class="perm-checks" style="margin-top:6px;">
+      <label><input type="checkbox" id="newStaffAdmin"> Make this an admin (full access)</label>
+    </div>
+    <div class="perm-checks" id="newStaffPerms">
+      ${PERM_KEYS.map(p => `<label><input type="checkbox" data-newperm="${p.key}"> ${p.label}</label>`).join('')}
+    </div>
+    <button type="button" class="btn-primary" id="createStaffBtn" style="margin-top:10px;">Create account</button>
+    <div id="newStaffResult"></div>`;
+  el.appendChild(addBox);
+
+  $('newStaffAdmin').addEventListener('change', () => {
+    const isAdminChecked = $('newStaffAdmin').checked;
+    document.querySelectorAll('#newStaffPerms input').forEach(cb => { cb.disabled = isAdminChecked; if(isAdminChecked) cb.checked = true; });
+  });
+
+  $('createStaffBtn').addEventListener('click', async () => {
+    const email = $('newStaffEmail').value.trim();
+    const pass = $('newStaffPass').value;
+    if(!email || pass.length < 6){ toast('Enter an email and a password of at least 6 characters'); return; }
+    const role = $('newStaffAdmin').checked ? 'admin' : 'staff';
+    const permissions = {};
+    document.querySelectorAll('#newStaffPerms input').forEach(cb => permissions[cb.dataset.newperm] = cb.checked);
+
+    $('createStaffBtn').disabled = true; $('createStaffBtn').textContent = 'Creating…';
+    let secondaryApp;
+    try{
+      secondaryApp = initializeApp(firebaseConfig, 'staff-create-' + Date.now());
+      const secondaryAuth = getAuth(secondaryApp);
+      const cred = await createUserWithEmailAndPassword(secondaryAuth, email, pass);
+      await signOut(secondaryAuth);
+      await setDoc(doc(db,'staff',cred.user.uid), { email, role, permissions, createdAt: serverTimestamp() });
+      $('newStaffResult').innerHTML = `<div class="creds-box"><strong>Account created.</strong> Share these with ${email}:<br>Email: ${email}<br>Password: ${pass}</div>`;
+      $('newStaffEmail').value = ''; $('newStaffPass').value = '';
+      toast('Staff account created');
+    }catch(e){
+      $('newStaffResult').innerHTML = `<div class="creds-box">Couldn't create account — ${e.code === 'auth/email-already-in-use' ? 'that email is already registered.' : 'check the details and try again.'}</div>`;
+    }
+    if(secondaryApp){ try{ await deleteApp(secondaryApp); }catch(e){} }
+    $('createStaffBtn').disabled = false; $('createStaffBtn').textContent = 'Create account';
+  });
+}
+
+function openStaffAccounts(){ openPanel('staffDrawer'); }
 
 renderStaffArea();
 renderAll();
