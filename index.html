@@ -97,6 +97,25 @@ nav.main a:hover::after{width:100%;}
 .book-btn:hover{background:var(--accent-ink);}
 .menu-toggle{display:none;background:none;border:0;font-size:26px;cursor:pointer;color:var(--ink);}
 
+/* ---------- Language switcher ---------- */
+.lang-switcher{position:relative;flex:none;}
+.lang-btn{background:none;border:1px solid var(--line);padding:9px 14px;border-radius:20px;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:6px;color:var(--ink);}
+.lang-btn:hover{border-color:var(--accent);}
+.lang-menu{position:absolute;top:calc(100% + 8px);right:0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 14px 34px rgba(0,0,0,.14);min-width:180px;display:none;z-index:60;overflow:hidden;}
+.lang-menu.open{display:block;}
+.lang-menu button{display:block;width:100%;text-align:left;padding:10px 16px;background:none;border:0;font-size:14.5px;color:var(--ink);}
+.lang-menu button:hover{background:var(--paper);}
+.lang-menu button.active{color:var(--accent);font-weight:700;}
+@media(max-width:900px){.lang-switcher{order:-1;}}
+
+/* Hide Google's own translate UI — we drive it with our own dropdown */
+#google_translate_element{display:none !important;}
+.goog-te-banner-frame.skiptranslate{display:none !important;}
+body{top:0 !important;}
+.goog-te-gadget{display:none !important;}
+.goog-tooltip, .goog-tooltip:hover{display:none !important;}
+.goog-text-highlight{background:none !important;box-shadow:none !important;}
+
 @media(max-width:900px){nav.main{display:none;}.menu-toggle{display:block;}}
 #mobileNav{display:none;flex-direction:column;gap:2px;border-top:1px solid var(--line);padding:10px 0 18px;}
 #mobileNav.open{display:flex;}
@@ -320,7 +339,7 @@ details.acc .acc-body{padding-top:16px;}
   <div class="wrap">
     <div class="msg"><span id="welcomeMsg"></span></div>
     <div class="info" id="topInfo">
-      <div class="staff-area" id="staffArea"></div>
+      <div class="staff-area notranslate" translate="no" id="staffArea"></div>
     </div>
   </div>
 </div>
@@ -330,6 +349,21 @@ details.acc .acc-body{padding-top:16px;}
     <a class="brand" href="#home" id="brandBlock"></a>
     <nav class="main" id="mainNav"></nav>
     <div class="header-right">
+      <div class="lang-switcher notranslate" translate="no" id="langSwitcher">
+        <button class="lang-btn" id="langBtn" type="button">🌐 <span id="langCurrent">English</span> ▾</button>
+        <div class="lang-menu" id="langMenu">
+          <button type="button" data-lang="en">English</button>
+          <button type="button" data-lang="ar">العربية</button>
+          <button type="button" data-lang="de">Deutsch</button>
+          <button type="button" data-lang="nl">Nederlands</button>
+          <button type="button" data-lang="fr">Français</button>
+          <button type="button" data-lang="es">Español</button>
+          <button type="button" data-lang="pt">Português</button>
+          <button type="button" data-lang="ru">Русский</button>
+          <button type="button" data-lang="zh-CN">中文</button>
+          <button type="button" data-lang="tr">Türkçe</button>
+        </div>
+      </div>
       <a class="book-btn" id="headerBookBtn" href="#book">Book an Appointment</a>
       <button class="menu-toggle" id="menuToggle" aria-label="Open menu">&#9776;</button>
     </div>
@@ -499,7 +533,7 @@ details.acc .acc-body{padding-top:16px;}
 
 <!-- ============ Staff: login modal ============ -->
 <div class="overlay" id="overlay"></div>
-<div class="modal" id="loginModal">
+<div class="modal notranslate" translate="no" id="loginModal">
   <button class="close-x" data-close="loginModal">✕</button>
   <h3>Staff sign in</h3>
   <p class="sub">For clinic staff only. Ask an administrator for an account.</p>
@@ -510,7 +544,7 @@ details.acc .acc-body{padding-top:16px;}
 </div>
 
 <!-- ============ Staff: site editor drawer ============ -->
-<div class="drawer" id="editorDrawer">
+<div class="drawer notranslate" translate="no" id="editorDrawer">
   <div class="drawer-head"><h3>Edit site</h3><button data-close="editorDrawer">✕</button></div>
   <div class="drawer-body" id="editorBody"></div>
   <div class="drawer-foot">
@@ -521,12 +555,24 @@ details.acc .acc-body{padding-top:16px;}
 </div>
 
 <!-- ============ Staff: bookings drawer ============ -->
-<div class="drawer" id="bookingsDrawer">
+<div class="drawer notranslate" translate="no" id="bookingsDrawer">
   <div class="drawer-head"><h3>Bookings</h3><button data-close="bookingsDrawer">✕</button></div>
   <div class="drawer-body" id="bookingsBody"></div>
 </div>
 
 <div class="toast" id="toast"></div>
+
+<div id="google_translate_element" class="notranslate" translate="no" style="display:none;"></div>
+<script>
+  window.googleTranslateElementInit = function(){
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'en,ar,de,nl,fr,es,pt,ru,zh-CN,tr',
+      autoDisplay: false
+    }, 'google_translate_element');
+  };
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -755,6 +801,48 @@ document.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('c
 
 $('menuToggle').addEventListener('click', () => $('mobileNav').classList.toggle('open'));
 document.addEventListener('click', e => { if(e.target.matches('#mobileNav a')) $('mobileNav').classList.remove('open'); });
+
+/* ================================================================
+   LANGUAGE SWITCHER — drives the hidden Google Translate widget so
+   the whole page (including staff-entered content) gets translated.
+   ================================================================ */
+const LANG_NAMES = { en:'English', ar:'العربية', de:'Deutsch', nl:'Nederlands', fr:'Français', es:'Español', pt:'Português', ru:'Русский', 'zh-CN':'中文', tr:'Türkçe' };
+const RTL_LANGS = new Set(['ar']);
+
+function findTranslateCombo(){ return document.querySelector('select.goog-te-combo'); }
+
+function applyLanguage(code, { persist = true } = {}){
+  document.documentElement.lang = code === 'zh-CN' ? 'zh' : code;
+  document.documentElement.dir = RTL_LANGS.has(code) ? 'rtl' : 'ltr';
+  $('langCurrent').textContent = LANG_NAMES[code] || 'English';
+  document.querySelectorAll('#langMenu button').forEach(b => b.classList.toggle('active', b.dataset.lang === code));
+  if(persist) localStorage.setItem('site_lang', code);
+
+  const combo = findTranslateCombo();
+  if(combo){
+    combo.value = code;
+    combo.dispatchEvent(new Event('change'));
+  } else if(code !== 'en'){
+    // Widget not ready yet — retry shortly.
+    setTimeout(() => applyLanguage(code, { persist:false }), 300);
+  }
+}
+
+$('langBtn').addEventListener('click', e => { e.stopPropagation(); $('langMenu').classList.toggle('open'); });
+document.addEventListener('click', () => $('langMenu').classList.remove('open'));
+document.querySelectorAll('#langMenu button').forEach(btn => {
+  btn.addEventListener('click', e => { e.stopPropagation(); applyLanguage(btn.dataset.lang); $('langMenu').classList.remove('open'); });
+});
+
+// Restore the visitor's last chosen language once the widget is ready.
+(function waitForWidget(){
+  const saved = localStorage.getItem('site_lang');
+  if(!saved || saved === 'en'){ if(saved) applyLanguage('en', {persist:false}); return; }
+  const timer = setInterval(() => {
+    if(findTranslateCombo()){ clearInterval(timer); applyLanguage(saved, {persist:false}); }
+  }, 250);
+  setTimeout(() => clearInterval(timer), 8000);
+})();
 
 /* ================================================================
    AUTH — staff login
