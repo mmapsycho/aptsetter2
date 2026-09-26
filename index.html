@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Clinic Name Here — Dental Clinic</title>
-<meta name="description" content="Clinic Name Here Dental Clinic, Hurghada — comprehensive, high-quality dental care.">
+<title>AVR — Dental Clinic</title>
+<meta name="description" content="AVR Dental Clinic, Hurghada — comprehensive, high-quality dental care.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%B7%3C/text%3E%3C/svg%3E" id="faviconLink">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -637,6 +637,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
   getFirestore, doc, getDoc, setDoc, onSnapshot,
+  enableIndexedDbPersistence,
   collection, addDoc, query, orderBy, updateDoc, deleteDoc,
   serverTimestamp, where, getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -659,6 +660,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+// Cache the last-loaded content in the visitor's browser, so a refresh shows
+// your real saved text instantly instead of the built-in placeholder while
+// it re-fetches from the network. (Silently ignored on browsers/tabs where
+// this isn't supported — the site still works, just without the instant cache.)
+try{ enableIndexedDbPersistence(db); }catch(e){}
 const storage = getStorage(app);
 
 /* =========================================================================
@@ -667,7 +673,7 @@ const storage = getStorage(app);
    ========================================================================= */
 const DEFAULT_CONTENT = {
   colors: { ink:"#16302B", paper:"#FAF6EF", accent:"#C08A2E", accentInk:"#4A2E14", line:"#DED6C3" },
-  brand: { name:"Clinic Name Here", tagline:"Dental Clinic", logoImage:"", logoInitials:"MF", favicon:"" },
+  brand: { name:"AVR", tagline:"Dental Clinic", logoImage:"", logoInitials:"MF", favicon:"" },
   contact: {
     phoneDisplay:"+20 100 100 0867", phoneHref:"tel:+201001000867",
     email:"clinic@example.com",
@@ -681,11 +687,11 @@ const DEFAULT_CONTENT = {
     { label:"Services", href:"#services" }, { label:"Gallery", href:"#gallery" },
     { label:"Reviews", href:"#reviews" }, { label:"Book", href:"#book" }, { label:"Contact", href:"#contact" }
   ],
-  topbar: { welcomeText:"Welcome to Clinic Name Here Dental Clinic.", linkLabel:"Book an appointment", linkHref:"#book" },
+  topbar: { welcomeText:"Welcome to AVR Dental Clinic.", linkLabel:"Book an appointment", linkHref:"#book" },
   hero: {
     slides: [
       { image:"https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=1800&auto=format&fit=crop", eyebrow:"Dental Clinic · Hurghada", headline:"Healthy smiles,\nconfidently made.", text:"Comprehensive, modern dental care in the heart of Hurghada — from routine checkups to complete smile restoration." },
-      { image:"https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=1800&auto=format&fit=crop", eyebrow:"Clinic Name Here", headline:"Gentle care,\nlasting results.", text:"A calm, modern clinic and an experienced team, focused on comfortable visits and long-term dental health." }
+      { image:"https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=1800&auto=format&fit=crop", eyebrow:"AVR", headline:"Gentle care,\nlasting results.", text:"A calm, modern clinic and an experienced team, focused on comfortable visits and long-term dental health." }
     ],
     ctas: [ { label:"Book an Appointment", href:"#book", primary:true }, { label:"Our Location", href:"#contact" }, { label:"Call Us", href:"tel:+201001000867" } ]
   },
@@ -694,7 +700,7 @@ const DEFAULT_CONTENT = {
     eyebrow:"About Us", title:"Care built around your comfort",
     image:"https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=1200&auto=format&fit=crop",
     paragraphs: [
-      "Clinic Name Here Dental Clinic offers comprehensive, high-quality dental care for a healthy, confident smile. Located in the heart of Hurghada, the clinic combines modern equipment with an attentive, patient-first approach.",
+      "AVR Dental Clinic offers comprehensive, high-quality dental care for a healthy, confident smile. Located in the heart of Hurghada, the clinic combines modern equipment with an attentive, patient-first approach.",
       "Every treatment plan is built around the individual — whether that means a routine cleaning, a restorative procedure, or a complete smile makeover."
     ],
     stats: [ { number:"10+", label:"Years of experience" }, { number:"1,000+", label:"Smiles treated" }, { number:"11PM", label:"Open daily until" } ]
@@ -725,7 +731,7 @@ const DEFAULT_CONTENT = {
     ]
   },
   cta: { text:"Ready for a healthier, more confident smile?", buttonLabel:"Book an Appointment" },
-  footer: { about:"Clinic Name Here Dental Clinic offers comprehensive, high-quality dental care for a healthy, confident smile.", copyright:"Copyright © 2026 Clinic Name Here. All rights reserved.", creditLine:"" }
+  footer: { about:"AVR Dental Clinic offers comprehensive, high-quality dental care for a healthy, confident smile.", copyright:"Copyright © 2026 AVR. All rights reserved.", creditLine:"" }
 };
 
 const DEFAULT_HOURS = { slotMinutes:60, startHour:11, endHour:23 };
