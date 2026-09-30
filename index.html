@@ -734,7 +734,10 @@ const DEFAULT_CONTENT = {
   footer: { about:"AVR Dental Clinic offers comprehensive, high-quality dental care for a healthy, confident smile.", copyright:"Copyright © 2026 AVR. All rights reserved.", creditLine:"" }
 };
 
-const DEFAULT_HOURS = { slotMinutes:60, startHour:11, endHour:23 };
+const DEFAULT_HOURS = { slotMinutes:60, startHour:11, endHour:23, dayHours:{} };
+// dayHours is keyed by JS weekday number as a string ("0" = Sunday … "6" = Saturday),
+// e.g. { "5": { start:18, end:22 } } means Friday only opens 6pm–10pm.
+// A day with no entry here just uses startHour/endHour above.
 const DEFAULT_HOLIDAYS = { closedWeekdays: [], holidays: [] }; // holidays: [{date:'2026-12-25', label:'Christmas'}]
 const DEFAULT_WHATSAPP = {
   enabled: false,
@@ -833,7 +836,12 @@ function renderAll(){
           <div class="hero-eyebrow">${s.eyebrow}</div>
           <h1>${s.headline}</h1>
           <p>${s.text}</p>
-          <div class="hero-ctas">${c.hero.ctas.map(cta => `<a class="${cta.primary?'primary':''}" href="${cta.href}">${cta.label}</a>`).join('')}</div>
+          <div class="hero-ctas">${c.hero.ctas.map(cta => {
+            // "Call Us"-style buttons always follow the real Contact & social phone number,
+            // so they can never show a stale/placeholder number even if hero.ctas wasn't re-saved.
+            const href = cta.href && cta.href.startsWith('tel:') ? c.contact.phoneHref : cta.href;
+            return `<a class="${cta.primary?'primary':''}" href="${href}">${cta.label}</a>`;
+          }).join('')}</div>
         </div>
       </div>
     </div>`).join('');
@@ -1023,7 +1031,13 @@ onSnapshot(doc(db,'site','content'), snap => {
 }, () => { liveContent = structuredClone(DEFAULT_CONTENT); rebuildLiveConfig(); renderAll(); });
 
 onSnapshot(doc(db,'site','hours'), snap => {
-  liveHours = snap.exists() ? mergeDeep(DEFAULT_HOURS, snap.data()) : structuredClone(DEFAULT_HOURS);
+  const data = snap.exists() ? snap.data() : {};
+  liveHours = {
+    slotMinutes: data.slotMinutes ?? DEFAULT_HOURS.slotMinutes,
+    startHour: data.startHour ?? DEFAULT_HOURS.startHour,
+    endHour: data.endHour ?? DEFAULT_HOURS.endHour,
+    dayHours: data.dayHours || {} // wholesale replace — this is a dynamic map, not deep-merged
+  };
   rebuildLiveConfig(); renderAll();
 }, () => { liveHours = structuredClone(DEFAULT_HOURS); rebuildLiveConfig(); renderAll(); });
 
@@ -1189,6 +1203,20 @@ function buildEditorForm(){
     }, { image:'', eyebrow:'', headline:'New headline', text:'' });
   }));
 
+  body.appendChild(accordion('Hero buttons', el => {
+    const note = document.createElement('p'); note.className = 'sub'; note.style.marginBottom = '12px';
+    note.textContent = 'These are the buttons under the hero headline. Any button linked to "tel:..." always uses the phone number from Contact & social, even if you leave the field below blank or out of date.';
+    el.appendChild(note);
+    arrayEditor(el, draft.hero.ctas, 'button', (card, item) => {
+      card.appendChild(field('Button label', item.label, v => item.label = v));
+      card.appendChild(field('Link (e.g. #book, #contact, tel:+201..., https://...)', item.href, v => item.href = v));
+      const primaryWrap = document.createElement('div'); primaryWrap.className = 'field';
+      primaryWrap.innerHTML = `<label><input type="checkbox" ${item.primary ? 'checked' : ''}> Highlighted (solid) style</label>`;
+      primaryWrap.querySelector('input').addEventListener('change', e => item.primary = e.target.checked);
+      card.appendChild(primaryWrap);
+    }, { label:'New button', href:'#', primary:false });
+  }));
+
   body.appendChild(accordion('About section', el => {
     el.appendChild(field('Eyebrow', draft.about.eyebrow, v => draft.about.eyebrow = v));
     el.appendChild(field('Title', draft.about.title, v => draft.about.title = v));
@@ -1248,10 +1276,41 @@ function buildEditorForm(){
   if(canHours){
   body.appendChild(accordion('Opening hours', el => {
     const row = document.createElement('div'); row.className='row2';
-    row.appendChild(field('Opens (hour, 0–23)', draft.booking.startHour, v => draft.booking.startHour = +v || 0, 'number'));
-    row.appendChild(field('Closes (hour, 0–23)', draft.booking.endHour, v => draft.booking.endHour = +v || 0, 'number'));
+    row.appendChild(field('Default opens (hour, 0–23)', draft.booking.startHour, v => draft.booking.startHour = +v || 0, 'number'));
+    row.appendChild(field('Default closes (hour, 0–23)', draft.booking.endHour, v => draft.booking.endHour = +v || 0, 'number'));
     el.appendChild(row);
     el.appendChild(field('Slot length (minutes)', draft.booking.slotMinutes, v => draft.booking.slotMinutes = +v || 60, 'number'));
+
+    if(!draft.booking.dayHours) draft.booking.dayHours = {};
+    const dayLabel = document.createElement('div'); dayLabel.style.cssText = 'font-weight:600;font-size:13px;color:var(--muted);margin:18px 0 8px;';
+    dayLabel.textContent = 'Different hours on specific days? Turn one on below.';
+    el.appendChild(dayLabel);
+
+    ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'].forEach((name, idx) => {
+      const key = String(idx);
+      const has = !!draft.booking.dayHours[key];
+      const card = document.createElement('div'); card.className = 'item-card';
+      const head = document.createElement('div'); head.className = 'field'; head.style.marginBottom = '10px';
+      head.innerHTML = `<label><input type="checkbox" id="dayOv${idx}" ${has ? 'checked' : ''}> ${name} — use custom hours instead of the default above</label>`;
+      card.appendChild(head);
+
+      const row2 = document.createElement('div'); row2.className = 'row2'; row2.style.display = has ? '' : 'none';
+      const cur = draft.booking.dayHours[key] || { start: draft.booking.startHour, end: draft.booking.endHour };
+      row2.appendChild(field('Opens (hour, 0–23)', cur.start, v => { draft.booking.dayHours[key].start = +v || 0; }, 'number'));
+      row2.appendChild(field('Closes (hour, 0–23)', cur.end, v => { draft.booking.dayHours[key].end = +v || 0; }, 'number'));
+      card.appendChild(row2);
+
+      head.querySelector('input').addEventListener('change', e => {
+        if(e.target.checked){
+          draft.booking.dayHours[key] = { start: draft.booking.startHour, end: draft.booking.endHour };
+          row2.style.display = '';
+        }else{
+          delete draft.booking.dayHours[key];
+          row2.style.display = 'none';
+        }
+      });
+      el.appendChild(card);
+    });
   }));
   }
 
@@ -1294,7 +1353,7 @@ $('editorSave').addEventListener('click', async () => {
     jobs.push(setDoc(doc(db,'site','content'), content));
   }
   if(hasPerm('hours')){
-    jobs.push(setDoc(doc(db,'site','hours'), { startHour: draft.booking.startHour, endHour: draft.booking.endHour, slotMinutes: draft.booking.slotMinutes }));
+    jobs.push(setDoc(doc(db,'site','hours'), { startHour: draft.booking.startHour, endHour: draft.booking.endHour, slotMinutes: draft.booking.slotMinutes, dayHours: draft.booking.dayHours || {} }));
   }
   if(hasPerm('holidays')){
     jobs.push(setDoc(doc(db,'site','holidays'), { closedWeekdays: draft.booking.closedWeekdays, holidays: draft.booking.holidays }));
@@ -1328,12 +1387,23 @@ function renderBookingServiceList(){
   }));
 }
 
-function generateSlots(){
-  const { startHour, endHour, slotMinutes } = liveConfig.booking;
+function effectiveHoursForDate(dateStr){
+  const b = liveConfig.booking;
+  if(dateStr){
+    const [y,m,d] = dateStr.split('-').map(Number);
+    const dow = new Date(y, m-1, d).getDay();
+    const override = b.dayHours && b.dayHours[String(dow)];
+    if(override) return { start: override.start, end: override.end };
+  }
+  return { start: b.startHour, end: b.endHour };
+}
+function generateSlots(dateStr){
+  const { start, end } = effectiveHoursForDate(dateStr);
+  const slotMinutes = liveConfig.booking.slotMinutes;
   const slots = [];
-  let mins = startHour * 60;
-  const end = endHour * 60;
-  while(mins < end){
+  let mins = start * 60;
+  const endMins = end * 60;
+  while(mins < endMins){
     const h = Math.floor(mins/60), m = mins%60;
     const ampm = h < 12 ? 'AM' : 'PM';
     const h12 = ((h % 12) || 12);
@@ -1346,7 +1416,7 @@ function generateSlots(){
 async function renderSlotGrid(){
   const grid = $('bSlotGrid'); const notice = $('bSlotNotice');
   grid.innerHTML = ''; notice.innerHTML = '';
-  const slots = generateSlots();
+  const slots = generateSlots(bWizard.date);
   let taken = new Set();
   if(bWizard.date){
     try{
@@ -1403,7 +1473,15 @@ function goStep(n){
 $('bDate').addEventListener('input', () => {
   bWizard.date = $('bDate').value; bWizard.time = null;
   const blocked = isDateBlocked(bWizard.date);
-  $('bDateNotice').innerHTML = blocked ? `<div class="b-notice warn">${blocked} Please choose another date.</div>` : '';
+  if(blocked){
+    $('bDateNotice').innerHTML = `<div class="b-notice warn">${blocked} Please choose another date.</div>`;
+  }else if(bWizard.date){
+    const { start, end } = effectiveHoursForDate(bWizard.date);
+    const fmt = h => `${((h % 12) || 12)}:00 ${h < 12 ? 'AM' : 'PM'}`;
+    $('bDateNotice').innerHTML = `<div class="b-notice warn">Hours that day: ${fmt(start)} – ${fmt(end)}</div>`;
+  }else{
+    $('bDateNotice').innerHTML = '';
+  }
   updateNextEnabled();
 });
 $('bDate').min = new Date().toISOString().split('T')[0];
