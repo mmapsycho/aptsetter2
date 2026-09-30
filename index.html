@@ -741,7 +741,7 @@ const DEFAULT_HOURS = { slotMinutes:60, startHour:11, endHour:23, dayHours:{} };
 const DEFAULT_HOLIDAYS = { closedWeekdays: [], holidays: [] }; // holidays: [{date:'2026-12-25', label:'Christmas'}]
 const DEFAULT_WHATSAPP = {
   enabled: false,
-  phone: "",   // the clinic's WhatsApp number, digits only with country code, e.g. 201001000867
+  phone: "",   // the clinic's WhatsApp number, digits only with country code, e.g. 201299944684
   apiKey: "",  // from CallMeBot after you activate it (see the WhatsApp API panel for steps)
   template: "New booking request:\n{service}\n{date} at {time}\nFrom: {name} — {contact}\nNotes: {notes}"
 };
@@ -1599,7 +1599,7 @@ function openWhatsappSettings(){
   body.appendChild(enableWrap);
   enableWrap.querySelector('#waEnabled').addEventListener('change', e => waDraft.enabled = e.target.checked);
 
-  body.appendChild(field('Clinic WhatsApp number (digits only, with country code, e.g. 201001000867)', waDraft.phone, v => waDraft.phone = v));
+  body.appendChild(field('Clinic WhatsApp number (digits only, with country code, e.g. 201299944684)', waDraft.phone, v => waDraft.phone = v));
   body.appendChild(field('CallMeBot API key', waDraft.apiKey, v => waDraft.apiKey = v));
   body.appendChild(field('Message template', waDraft.template, v => waDraft.template = v, 'textarea'));
 
